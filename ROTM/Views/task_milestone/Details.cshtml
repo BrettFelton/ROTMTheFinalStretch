@@ -1,0 +1,42 @@
+﻿@model ROTM.task_milestone
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Task Milestone</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Task_Repetion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Task_Repetion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.milestone.Milestone_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.milestone.Milestone_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.task.Task_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.task.Task_Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

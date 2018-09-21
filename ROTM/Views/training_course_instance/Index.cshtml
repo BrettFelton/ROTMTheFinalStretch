@@ -1,0 +1,105 @@
+﻿@model IEnumerable<ROTM.training_course_instance>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Search: <input type="text" name="SearchString" placeholder="E.g. Harry" value="@ViewData["currentFilter"]" />
+        </p>
+    </div>
+    <div>
+        <p class="text-warning">
+            The date will be defaulted to todays date even if you type in a name in the "From Date" and "To Date" areas.
+        </p>
+        <p>
+            From Date: <input type="text" name="fromDate" value="@ViewData["fromDate"]" /> @*@Html.TextBox("fromDate", string.Format("{0:dd MMM yyy}", fromDate), new { @class = "datefield", type = "date" })*@
+            To Date: <input type="text" name="toDate" value="@ViewData["toDate"]" /> @*@Html.TextBox("toDate", string.Format("{0:dd MMM yyy}", fromDate), new { @class = "datefield", type = "date" })*@
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            @Html.ActionLink("Show Todays Training Courses", "Index", "training_course_instance")
+        </p>
+    </div>
+</form>
+
+@*<div class="demo-section k-content">
+        <h4>Show e-mails from:</h4>
+        @(Html.().DatePicker()
+                  .Name("datepicker")
+                  .Value("10/10/2011")
+                  .HtmlAttributes(new { style = "width: 100%", title = "datepicker" })
+        )
+        <h4 style="margin-top: 2em;">Add to archive mail from:</h4>
+        @(Html.Kendo().DatePicker()
+                      .Name("monthpicker")
+                      .Start(CalendarView.Year)
+                      .Depth(CalendarView.Year)
+                      .Format("MMMM yyyy")
+                      .Value("November 2011")
+                      .DateInput()
+                      .HtmlAttributes(new { style = "width: 100%", title = "monthpicker" })
+        )
+    </div>*@
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Instance_Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Instance_Start_Time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Instance_End_Time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.instructor.Instructor_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.training_course.Training_Course_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.venue.Venue_Name)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Instance_Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Instance_Start_Time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Instance_End_Time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.instructor.Instructor_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.training_course.Training_Course_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.venue.Venue_Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Training_Course_Instance_ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Training_Course_Instance_ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Training_Course_Instance_ID }) |
+                @Html.ActionLink("Capture Sales Rep Attendance", "CaptureSaleRepAttendance", new { id = item.Training_Course_Instance_ID })
+            </td>
+        </tr>
+    }
+
+</table>

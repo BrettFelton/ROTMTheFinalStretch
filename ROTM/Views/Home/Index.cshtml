@@ -1,0 +1,104 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<div><hr /></div>
+<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
+
+
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    </ol>
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+
+            <div class="carousel-caption" role="option">
+                <hr />
+                <p style="color:black;">
+                    Reps on the Move Managers Home Page
+                </p>
+
+            </div>
+            <img src="~/Content/Images/ROTM.png" alt="ROTM logo" class="img-responsive center-block" height="200" width="250" />
+        </div>
+    </div>
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+
+<div class="row">
+    <div class="col-md-3">
+        <h2>Employee Management</h2>
+        <ul>
+            <li>@Html.ActionLink("Employees", "Index", "Employees")</li>
+            <li>@Html.ActionLink("Employee Type", "Index", "Employee_type")</li>
+            <li>@Html.ActionLink("Generate Registration Token", "Create", "registration_token")</li>
+        </ul>
+    </div>
+    <div class="col-md-3">
+        <h2>Client Management</h2>
+        <ul>
+            @*<li>@Html.ActionLink("Client Index", "Index", "Clients")</li>*@
+            <li>@Html.ActionLink("Client Type", "Index", "Client_type")</li>
+            @*<li>@Html.ActionLink("Client Rating Type", "Index", "Employee_type")<a asp-area="" asp-controller="Client_Rating" asp-action="">Client Rating</a></li>*@
+        </ul>
+    </div>
+    <div class="col-md-3">
+        <h2>Access Level</h2>
+        <ul>
+            <li>@Html.ActionLink("Access Levels", "Index", "Access_Level")</li>
+        </ul>
+    </div>
+    <div class="col-md-3">
+        <h2>Notifications</h2>
+        <ul>
+            <li>@Html.ActionLink("General external marketing notification", "Create", "client_mailinglist")</li>
+            <li>@Html.ActionLink("General internal notification", "Create", "employee_mailinglist")</li>
+        </ul>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <h2>Reporting</h2>
+        <ul>
+            <li>@Html.ActionLink("Quote and Order Report", "Index", "QuoteAndOrderReport")</li>
+            <li>@Html.ActionLink("Weekly Progress Report", "Index", "WeeklyProgressReport")</li>
+            <li>@Html.ActionLink("Training Report", "Index", "TrainingReport")</li>
+            <li>@Html.ActionLink("Projected Bookings Report", "Index", "ProjectedBookings")</li>
+            <li>@Html.ActionLink("Actual Bookings Report", "Index", "ActualBookingReport")</li>
+        </ul>
+    </div>
+    <div class="col-md-3">
+        <h2>Employee Milestone Management</h2>
+        <ul>
+            <li>@Html.ActionLink("Milestones", "Index", "Task_Milestone")</li>
+            <li>@Html.ActionLink("Setup Tasks", "Index", "Tasks")</li>
+        </ul>
+    </div>
+    <div class="col-md-3">
+        <h2>Venue Management</h2>
+        <ul>
+            <li>@Html.ActionLink("Venues", "Index", "Venues")</li>
+            @*<li>@Html.ActionLink("Address", "Index", "Addresses")</li>*@
+            @*<li>@Html.ActionLink("Bookings", "Index", "bookings")</li>*@
+            <li>@Html.ActionLink("Booking Type", "Index", "booking_type")
+        </ul>
+    </div>
+    <div class="col-md-3">
+        <h2>Training Course Management</h2>
+        <ul>
+            <li>@Html.ActionLink("Training Course", "Index", "Training_Course")</li>
+            <li>@Html.ActionLink("Training Course Type", "Index", "Training_Course_type")</li>
+            <li>@Html.ActionLink("Training Course Instance", "Index", "Training_Course_Instance")</li>
+            <li>@Html.ActionLink("Instructor", "Index", "Instructors")</li>
+            <li>@Html.ActionLink("Instructor Type", "Index", "Instructor_type")</li>
+        </ul>
+    </div>
+</div>    
