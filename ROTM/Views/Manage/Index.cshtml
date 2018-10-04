@@ -7,6 +7,12 @@
 
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div>
+    <div class="display-field">
+        <img src="@Url.Content(Model.filepath)" width="200" height="200" />
+    </div>
+</div>
+
+<div>
     <h4>Change your account settings</h4>
     <hr />
     <dl class="dl-horizontal">
@@ -27,17 +33,21 @@
         <dd>
             [ @Html.ActionLink("Change your Profile Details", "UpdateProfile") ]
         </dd>
+        <dt>Profile Picture:</dt>
+        <dd>
+            [ @Html.ActionLink("Change your Profile Picture", "UploadFiles") ]
+        </dd>
         <dt>Address:</dt>
         <dd>
             [
             @*if (Model.HasAddress)
-            {*@
+                {*@
             @Html.ActionLink("Change your Profile Address", "UpdateAddress")
             @*}
-            else
-            {
-            @Html.ActionLink("Create", "SetAddress")
-            }*@
+                else
+                {
+                @Html.ActionLink("Create", "SetAddress")
+                }*@
             ]
         </dd>
         @*<dt>External Logins:</dt>
@@ -102,3 +112,4 @@
         @*</dd>*@
     </dl>
 </div>
+

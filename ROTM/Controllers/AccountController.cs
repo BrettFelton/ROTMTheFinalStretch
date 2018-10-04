@@ -68,7 +68,9 @@ namespace ROTM.Controllers
                     string stri = chkpass.ToString();
 
                     var details = (from userlist in db.employees
-                                   where userlist.Employee_Email == model.Employee_Email && userlist.Encrypted_Password == stri
+                                   join reg in db.registration_token
+                                   on userlist.Employee_Email equals reg.New_Email
+                                   where userlist.Employee_Email == model.Employee_Email && userlist.Encrypted_Password == stri && reg.New_Email == userlist.Employee_Email && (reg.Access_Level_ID == 2 || reg.Access_Level_ID == 1)
                                    select new
                                    {
                                        userlist.Employee_ID,
@@ -103,7 +105,7 @@ namespace ROTM.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError(string.Empty, "Invalid username or password");
+                        ModelState.AddModelError(string.Empty, "Invalid email address or password");
                     }
                 }
             }
@@ -154,7 +156,7 @@ namespace ROTM.Controllers
        [HttpPost]
        [AllowAnonymous]
        [ValidateAntiForgeryToken]
-        public ActionResult Register(employee model)
+        public ActionResult Register(employee model, address addresses)
         {
             var Reg = new RegisterViewModel();
             if (ModelState.IsValid)
@@ -169,6 +171,15 @@ namespace ROTM.Controllers
                 string stri = chkpass.ToString();
 
                 model.Encrypted_Password = stri;
+                addresses.City = "";
+                addresses.Country = "";
+                addresses.Street_Name = "";
+                addresses.Suburb = "";
+                addresses.Province = "";
+
+
+                db.addresses.Add(addresses);
+                model.Address_ID = addresses.Address_ID;
                 db.employees.Add(model);
                 db.SaveChanges();
                 return RedirectToAction("Index", "Home");

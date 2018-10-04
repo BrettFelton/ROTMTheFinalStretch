@@ -59,16 +59,28 @@ namespace ROTM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Task_ID,Milestone_ID,Task_Repetion")] task_milestone task_milestone)
         {
-            if (ModelState.IsValid)
+            var check = db.task_milestone.Where(s => s.Task_ID == task_milestone.Task_ID && s.Milestone_ID == task_milestone.Milestone_ID).FirstOrDefault();
+            if (check == null)
             {
-                db.task_milestone.Add(task_milestone);
-                db.SaveChanges();
-                return RedirectToAction("Create", "employee_milestone");
+                if (ModelState.IsValid)
+                {
+                    db.task_milestone.Add(task_milestone);
+                    db.SaveChanges();
+                    return RedirectToAction("Create", "employee_milestone");
+                }
+                ViewBag.Milestone_ID = new SelectList(db.milestones, "Milestone_ID", "Milestone_Name", task_milestone.Milestone_ID);
+                ViewBag.Task_ID = new SelectList(db.tasks, "Task_ID", "Task_Name", task_milestone.Task_ID);
+                return View(task_milestone);
+            }
+            else
+            {
+                ViewBag.Error = "This Task already has that Milestone assigned to them. Did you not mean to choose a different Task.";
+                ViewBag.Milestone_ID = new SelectList(db.milestones, "Milestone_ID", "Milestone_Name", task_milestone.Milestone_ID);
+                ViewBag.Task_ID = new SelectList(db.tasks, "Task_ID", "Task_Name", task_milestone.Task_ID);
+                return View(task_milestone);
             }
 
-            ViewBag.Milestone_ID = new SelectList(db.milestones, "Milestone_ID", "Milestone_Name", task_milestone.Milestone_ID);
-            ViewBag.Task_ID = new SelectList(db.tasks, "Task_ID", "Task_Name", task_milestone.Task_ID);
-            return View(task_milestone);
+           
         }
 
         // GET: task_milestone/Edit/5

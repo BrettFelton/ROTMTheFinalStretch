@@ -142,10 +142,20 @@ namespace ROTM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            training_course training_course = db.training_course.Find(id);
-            db.training_course.Remove(training_course);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var check = db.training_course_instance.Where(s => s.Instructor_ID == id).FirstOrDefault();
+
+            if (check == null)
+            {
+                training_course training_course = db.training_course.Find(id);
+                db.training_course.Remove(training_course);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewBag.Error = "Can't delete a training course description that has been used in training course instance, keep it as a record for historic purposes.";
+                return View();
+            }
         }
 
         protected override void Dispose(bool disposing)

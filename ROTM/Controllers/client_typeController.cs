@@ -121,10 +121,20 @@ namespace ROTM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            client_type client_type = db.client_type.Find(id);
-            db.client_type.Remove(client_type);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var check = db.clients.Where(s => s.Client_Type_ID == id).FirstOrDefault();
+
+            if (check == null)
+            {
+                client_type client_type = db.client_type.Find(id);
+                db.client_type.Remove(client_type);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewBag.Error = "Can't delete a type that is in-use please add a new type instead, or delete all clients related to this type first.";
+                return View();
+            }
         }
 
         protected override void Dispose(bool disposing)

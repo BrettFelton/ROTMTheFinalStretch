@@ -34,9 +34,15 @@ namespace ROTM.Controllers
 
                 return View(training_course_instance.ToList());
             }
+            //Returns both Name and day search
+            else if (!String.IsNullOrEmpty(searchString) && fromDate != null && toDate != null)
+            {
+                training_course_instance = training_course_instance.Where(s => s.instructor.Instructor_Name.Contains(searchString) || s.training_course.Training_Course_Name.Contains(searchString) || s.venue.Venue_Name.Contains(searchString) && (s.Instance_Date >= fromDate && s.Instance_Date <= toDate));
 
+                return View(training_course_instance.ToList());
+            }
             //Returns Day Search
-            if (fromDate != null && toDate != null)
+            else if (fromDate != null && toDate != null)
             {
                 var Meeting = db.training_course_instance.Where(c => c.Instance_Date >= fromDate && c.Instance_Date <= toDate).ToList();
                 return View(Meeting);
@@ -249,17 +255,18 @@ namespace ROTM.Controllers
         // POST: training_course_instance/Delete/5
         [HttpPost, ActionName("CaptureSaleRepAttendance")]
         [ValidateAntiForgeryToken]
-        public ActionResult CaptureSaleRepAttendance([Bind(Include = "Training_Course_Instance_ID,Employee_ID,Replied_Going,Actual_Attendance")] attendance attendance)
+        public ActionResult CaptureSaleRepAttendance([Bind(Include = "Training_Course_Instance_ID,Employee_ID,Replied_Going,Actual_Attendance")] attendance[] attendance)
         {
             if (ModelState.IsValid)
             {
+                //attendance = db.attendances.Include(a => a.employee).Include(a => a.training_course_instance).Where(a => a.Training_Course_Instance_ID == id);
                 //attendance.Actual_Attendance = attendance.Actual_Attendance;
-                //db.Entry(attendance).State = EntityState.Modified;
-                //db.SaveChanges();
+                db.Entry(attendance).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Employee_ID = new SelectList(db.employees, "Employee_ID", "Employee_Name", attendance.Employee_ID);
-            ViewBag.Training_Course_Instance_ID = new SelectList(db.training_course_instance, "Training_Course_Instance_ID", "Training_Course_Instance_ID", attendance.Training_Course_Instance_ID);
+            //ViewBag.Employee_ID = new SelectList(db.employees, "Employee_ID", "Employee_Name", attendance.Employee_ID);
+            //ViewBag.Training_Course_Instance_ID = new SelectList(db.training_course_instance, "Training_Course_Instance_ID", "Training_Course_Instance_ID", attendance.Training_Course_Instance_ID);
             return View(attendance);
         }
 

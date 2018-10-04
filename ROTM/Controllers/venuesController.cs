@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ROTM;
+using ROTM.Models;
 
 namespace ROTM.Controllers
 {
@@ -49,7 +50,7 @@ namespace ROTM.Controllers
         // GET: venues/Create
         public ActionResult Create()
         {
-            ViewBag.Address_ID = new SelectList(db.addresses, "Address_ID", "Street_Name");
+            //ViewBag.Address_ID = new SelectList(db.addresses, "Address_ID", "Street_Name");
             return View();
         }
 
@@ -58,23 +59,26 @@ namespace ROTM.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Venue_ID,Venue_Name,Venue_Description,Venue_Size,Address_ID")] venue venue)
+        public ActionResult Create([Bind(Include = "Venue_ID,Venue_Name,Venue_Description,Venue_Size")] venue venue, address address)
         {
             bool val = Validate(venue.Venue_Name);
-            if (ModelState.IsValid && val == false)
+            
+            if (val == false)
             {
+                db.addresses.Add(address);
+                venue.Address_ID = address.Address_ID;
                 db.venues.Add(venue);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             else if (val == true)
             {
-                ViewBag.StatusMessage = "There is already a venue called: " + venue.Venue_Name + "  in the database.";
+                //ViewBag.StatusMessage = "There is already a venue called: " + venue.Venue_Name + "  in the database.";
 
                 ViewBag.Address_ID = new SelectList(db.addresses, "Address_ID", "Street_Name", venue.Address_ID);
                 return View();
             }
-            ViewBag.Address_ID = new SelectList(db.addresses, "Address_ID", "Street_Name", venue.Address_ID);
+            //ViewBag.Address_ID = new SelectList(db.addresses, "Address_ID", "Street_Name", venue.Address_ID);
             return View(venue);
         }
 
@@ -90,7 +94,7 @@ namespace ROTM.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Address_ID = new SelectList(db.addresses, "Address_ID", "Street_Name", venue.Address_ID);
+            //ViewBag.Address_ID = new SelectList(db.addresses, "Address_ID", "Street_Name", venue.Address_ID);
             return View(venue);
         }
 
@@ -99,11 +103,16 @@ namespace ROTM.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Venue_ID,Venue_Name,Venue_Description,Venue_Size,Address_ID")] venue venue)
+        public ActionResult Edit([Bind(Include = "Venue_ID,Venue_Name,Venue_Description,Venue_Size,Address_ID")] venue venue, address address)
         {
             bool val = db.venues.Any(s => s.Venue_Name == venue.Venue_Name && s.Venue_ID != venue.Venue_ID);
-            if (ModelState.IsValid && val == false)
+            
+
+            if (val == false)
             {
+                //address.Address_ID = venue.Address_ID;
+                db.Entry(address).State = EntityState.Modified;
+
                 db.Entry(venue).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -139,10 +148,23 @@ namespace ROTM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            venue venue = db.venues.Find(id);
-            db.venues.Remove(venue);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var check = db.training_course_instance.Where(s => s.Venue_ID == id).FirstOrDefault();
+
+            if (check == null)
+            {
+                venue venue = db.venues.Find(id);
+                address address = db.addresses.Find(venue.Address_ID);
+
+                db.addresses.Remove(address);
+                db.venues.Remove(venue);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewBag.Error = "Can't delete a venue that is in-use please add a new venue instead.";
+                return View();                
+            }
         }
 
         protected override void Dispose(bool disposing)

@@ -52,16 +52,28 @@ namespace ROTM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Employee_ID,Milestone_ID,Reason_Milestone,Milestone_Progress")] employee_milestone employee_milestone)
         {
-            if (ModelState.IsValid)
+            var check = db.employee_milestone.Where(s => s.Employee_ID == employee_milestone.Employee_ID && s.Milestone_ID == employee_milestone.Milestone_ID).FirstOrDefault();
+            if (check == null)
             {
-                db.employee_milestone.Add(employee_milestone);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.employee_milestone.Add(employee_milestone);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                ViewBag.Employee_ID = new SelectList(db.employees, "Employee_ID", "Employee_Name", employee_milestone.Employee_ID);
+                ViewBag.Milestone_ID = new SelectList(db.milestones, "Milestone_ID", "Milestone_Name", employee_milestone.Milestone_ID);
+                return View(employee_milestone);
+            }
+            else
+            {
+                ViewBag.Error = "This Employee already has that milestone assigned to them. Did you not mean to choose a different employee.";
+                ViewBag.Employee_ID = new SelectList(db.employees, "Employee_ID", "Employee_Name", employee_milestone.Employee_ID);
+                ViewBag.Milestone_ID = new SelectList(db.milestones, "Milestone_ID", "Milestone_Name", employee_milestone.Milestone_ID);
+                return View(employee_milestone);
             }
 
-            ViewBag.Employee_ID = new SelectList(db.employees, "Employee_ID", "Employee_Name", employee_milestone.Employee_ID);
-            ViewBag.Milestone_ID = new SelectList(db.milestones, "Milestone_ID", "Milestone_Name", employee_milestone.Milestone_ID);
-            return View(employee_milestone);
+
         }
 
         // GET: employee_milestone/Edit/5

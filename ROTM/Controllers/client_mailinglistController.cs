@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -51,27 +52,31 @@ namespace ROTM.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Client_ID,Mailing_List_ID,Description")] client_mailinglist client_mailinglist)
+        public ActionResult Create([Bind(Include = "Client_ID,Mailing_List_ID,Description")] client_mailinglist client_mailinglist, HttpPostedFileBase fileUploader)
         {
             if (ModelState.IsValid)
             {
 
-               // List<client> clientEmail = db.clients.ToList();
-               //// var fileName = @"c:\test.pdf";
+                //List<client> clientEmail = db.clients.ToList();
+                var clients = (from clientlist in db.clients where clientlist.Client_ID == client_mailinglist.Client_ID select clientlist).First();
+                // var fileName = @"c:\test.pdf";
 
-               // foreach (var clientE in clientEmail)
-               // {
-               //     MailMessage mail = new MailMessage("no-reply@repsonthemove.com", clientE.Client_Email);
-               //     SmtpClient client = new SmtpClient();
-               //     client.Port = 25;
-               //     client.DeliveryMethod = SmtpDeliveryMethod.Network;
-               //     client.Credentials = new System.Net.NetworkCredential("no-reply@repsonthemove.com", "k1Yvi2&5");
-               //     client.Host = "nl1-wss2.a2hosting.com";
-               //     mail.Subject = "External Mailing List";
-               //    // mail.Attachments.Add(new Attachment(fileName));
-               //     mail.Body = "Hi " + clientE.Client_Name + "\n\n"+ client_mailinglist.Description + "\n\nRegards" + "\nReps On The Move Team";
-               //     client.Send(mail);
-               // }
+                MailMessage mail = new MailMessage("no-reply@repsonthemove.com", clients.Client_Email);
+                SmtpClient client = new SmtpClient();
+                client.Port = 25;
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                client.Credentials = new System.Net.NetworkCredential("no-reply@repsonthemove.com", "k1Yvi2&5");
+                client.Host = "nl1-wss2.a2hosting.com";
+                mail.Subject = "External Mailing List";
+
+                if (fileUploader != null)
+                {
+                    string fileName = Path.GetFileName(fileUploader.FileName);
+                    mail.Attachments.Add(new Attachment(fileUploader.InputStream, fileName));
+                }
+
+                mail.Body = "Hi " + clients.Client_Name + "\n\n" + client_mailinglist.Description + "\n\nRegards" + "\nReps On The Move Team";
+                client.Send(mail);
 
                 //db.client_mailinglist.Add(client_mailinglist);
                 //db.SaveChanges();

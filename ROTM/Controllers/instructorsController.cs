@@ -155,10 +155,20 @@ namespace ROTM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            instructor instructor = db.instructors.Find(id);
-            db.instructors.Remove(instructor);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var check = db.training_course_instance.Where(s => s.Instructor_ID == id).FirstOrDefault();
+
+            if (check == null)
+            {
+                instructor instructor = db.instructors.Find(id);
+                db.instructors.Remove(instructor);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewBag.Error = "Can't delete a instructor that has given a training course, keep it as a record for historic purposes.";
+                return View();
+            }
         }
 
         protected override void Dispose(bool disposing)

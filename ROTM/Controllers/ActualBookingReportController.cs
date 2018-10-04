@@ -1,4 +1,5 @@
 ﻿using CrystalDecisions.CrystalReports.Engine;
+using ROTM.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,14 +18,16 @@ namespace ROTM.Controllers
         // GET: ActualBookingReport
         public ActionResult Index()
         {
-            var employee = db.employees.ToList();
-            return View(employee);
+            ViewBag.Employee_ID = new SelectList(db.employees, "Employee_ID", "Employee_Name");
+            return View();
         }
 
-        public ActionResult ExportActualBookings()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(ActualBookingsReportViewModel model)
         {
             List<employee> allEmployees = new List<employee>();
-            allEmployees = db.employees.ToList();
+            allEmployees = db.employees.Where(s => s.Employee_ID == model.Employee_ID).ToList();
 
             PropertyDescriptorCollection properties =
             TypeDescriptor.GetProperties(typeof(employee));
@@ -50,6 +53,7 @@ namespace ROTM.Controllers
             Response.ClearContent();
             Response.ClearHeaders();
 
+            ViewBag.Employee_ID = new SelectList(db.employees, "Employee_ID", "Employee_Name");
 
             Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
             stream.Seek(0, SeekOrigin.Begin);

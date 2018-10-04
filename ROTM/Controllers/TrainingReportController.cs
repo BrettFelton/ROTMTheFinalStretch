@@ -1,4 +1,5 @@
 ﻿using CrystalDecisions.CrystalReports.Engine;
+using ROTM.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,20 +20,24 @@ namespace ROTM.Controllers
         // GET: TrainingReport
         public ActionResult Index()
         {
+            ViewBag.Employee_ID = new SelectList(db.employees, "Employee_ID", "Employee_Name");
             return View();
         }
 
-        public ActionResult TrainingReport()
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(TrainingReportViewModel model)
         {
-            List<training_course> allTra = new List<training_course>();
-            allTra = db.training_course.ToList();
+            List<attendance> allTra = new List<attendance>();
+            allTra = db.attendances.Where(s => s.Employee_ID == model.Employee_ID).ToList();
 
             PropertyDescriptorCollection properties =
-            TypeDescriptor.GetProperties(typeof(training_course));
+            TypeDescriptor.GetProperties(typeof(attendance));
             DataTable table = new DataTable();
             foreach (PropertyDescriptor prop in properties)
                 table.Columns.Add(prop.Name, Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType);
-            foreach (training_course item in allTra)
+            foreach (attendance item in allTra)
             {
                 DataRow row = table.NewRow();
                 foreach (PropertyDescriptor prop in properties)
@@ -51,6 +56,7 @@ namespace ROTM.Controllers
             Response.ClearContent();
             Response.ClearHeaders();
 
+            ViewBag.Employee_ID = new SelectList(db.employees, "Employee_ID", "Employee_Name");
 
             Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
             stream.Seek(0, SeekOrigin.Begin);

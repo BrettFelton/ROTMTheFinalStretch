@@ -121,10 +121,21 @@ namespace ROTM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            booking_type booking_type = db.booking_type.Find(id);
-            db.booking_type.Remove(booking_type);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var check = db.bookings.Where(s => s.Booking_Type_ID == id).FirstOrDefault();
+
+            if (check == null)
+            {
+                booking_type booking_type = db.booking_type.Find(id);
+                db.booking_type.Remove(booking_type);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewBag.Error = "Can't delete a type that is in-use please add a new type instead, or delete all bookings related to this type first.";
+                return View();
+            }
+           
         }
 
         protected override void Dispose(bool disposing)

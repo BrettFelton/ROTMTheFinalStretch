@@ -138,10 +138,20 @@ namespace ROTM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            employee employee = db.employees.Find(id);
-            db.employees.Remove(employee);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var check = db.bookings.Where(s => s.Employee_ID == id).FirstOrDefault();
+
+            if (check == null)
+            {
+                employee employee = db.employees.Find(id);
+                db.employees.Remove(employee);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewBag.Error = "Can't delete a employee that has been used in booking, keep it as a record for historic purposes.";
+                return View();
+            }
         }
 
 

@@ -1,4 +1,5 @@
 ﻿using CrystalDecisions.CrystalReports.Engine;
+using ROTM.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,13 +18,16 @@ namespace ROTM.Controllers
         // GET: ActualBookingReport
         public ActionResult Index()
         {
+            ViewBag.Employee_ID = new SelectList(db.employees, "Employee_ID", "Employee_Name");
             return View();
         }
 
-        public ActionResult WeeklyProgressReport()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(WeeklyProgressReportViewModel model)
         {
             List<employee> allEmployees = new List<employee>();
-            allEmployees = db.employees.ToList();
+            allEmployees = db.employees.Where(s => s.Employee_ID == model.Employee_ID).ToList();
 
             PropertyDescriptorCollection properties =
             TypeDescriptor.GetProperties(typeof(employee));
@@ -49,10 +53,14 @@ namespace ROTM.Controllers
             Response.ClearContent();
             Response.ClearHeaders();
 
+            ViewBag.Employee_ID = new SelectList(db.employees, "Employee_ID", "Employee_Name");
 
             Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
             stream.Seek(0, SeekOrigin.Begin);
             return File(stream, "application/pdf", "WeeklyProgressReport.pdf");
+
+
+
         }
 
     }

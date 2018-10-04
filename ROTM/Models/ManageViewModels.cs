@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
@@ -14,6 +15,15 @@ namespace ROTM.Models
         public string PhoneNumber { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
+
+        public string filepath { get; set; }
+    }
+
+    public class ProfilePicture
+    {
+        [Required(ErrorMessage = "Please select file.")]
+        [Display(Name = "Browse File")]
+        public HttpPostedFileBase files { get; set; }
     }
 
     public class UpdateProfileAddress : address
@@ -74,16 +84,12 @@ namespace ROTM.Models
         [Display(Name = "Gender")]
         public Nullable<int> Gender_ID { get; set; }
 
-        [Display(Name = "Address")]
-        public Nullable<int> Address_ID { get; set; }
-
         [Display(Name = "Title")]
         public Nullable<int> Title_ID { get; set; }
 
         public virtual employee_type employee_type { get; set; }
         public virtual gender gender { get; set; }
         public virtual title title { get; set; }
-        public virtual address address { get; set; }
     }
 
     public class ManageLoginsViewModel

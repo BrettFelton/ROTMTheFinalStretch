@@ -122,10 +122,20 @@ namespace ROTM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            training_course_type training_course_type = db.training_course_type.Find(id);
-            db.training_course_type.Remove(training_course_type);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var check = db.training_course.Where(s => s.Training_Course_Type_ID == id).FirstOrDefault();
+
+            if (check == null)
+            {
+                training_course_type training_course_type = db.training_course_type.Find(id);
+                db.training_course_type.Remove(training_course_type);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewBag.Error = "Can't delete a type that is in-use please add a new type instead, or delete all training courses related to this type first.";
+                return View();
+            }
         }
 
         protected override void Dispose(bool disposing)

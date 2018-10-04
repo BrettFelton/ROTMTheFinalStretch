@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
-using ROTM;
 
 namespace ROTM.Controllers
 {
@@ -51,27 +49,28 @@ namespace ROTM.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Employee_ID,Mailing_List_ID,Description")] employee_mailinglist employee_mailinglist)
+        public ActionResult Create([Bind(Include = "Employee_ID,Mailing_List_ID,Description")] employee_mailinglist employee_mailinglist, HttpPostedFileBase fileUploader)
         {
             if (ModelState.IsValid)
             {
+                var Employee =  (from employeelist in db.employees where employeelist.Employee_ID == employee_mailinglist.Employee_ID select employeelist).First();
 
-               // List<employee> employeeEmail = db.employees.ToList();
-               //// var fileName = @"c:\test.pdf";
+                MailMessage mail = new MailMessage("no-reply@repsonthemove.com", Employee.Employee_Email);
+                SmtpClient client = new SmtpClient();
+                client.Port = 25;
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                client.Credentials = new System.Net.NetworkCredential("no-reply@repsonthemove.com", "k1Yvi2&5");
+                client.Host = "nl1-wss2.a2hosting.com";
+                mail.Subject = "Internal Mailing List";
 
-               // foreach (var employeeE in employeeEmail)
-               // {
-               //     MailMessage mail = new MailMessage("no-reply@repsonthemove.com", employeeE.Employee_Email);
-               //     SmtpClient client = new SmtpClient();
-               //     client.Port = 25;
-               //     client.DeliveryMethod = SmtpDeliveryMethod.Network;
-               //     client.Credentials = new System.Net.NetworkCredential("no-reply@repsonthemove.com", "k1Yvi2&5");
-               //     client.Host = "nl1-wss2.a2hosting.com";
-               //     mail.Subject = "Internal Mailing List";
-               //    // mail.Attachments.Add(new Attachment(fileName));
-               //     mail.Body = "Hi " + employeeE.Employee_Name+ " " + employeeE.Employee_Surname + "\n\n" + employee_mailinglist.Description + "\n\nRegards" + "\nReps On The Move Team";
-               //     client.Send(mail);
-               // }
+                if (fileUploader != null)
+                {
+                    string fileName = Path.GetFileName(fileUploader.FileName);
+                    mail.Attachments.Add(new Attachment(fileUploader.InputStream, fileName));
+                }
+
+                mail.Body = "Hi " + Employee.Employee_Name + " " + Employee.Employee_Surname + "\n\n" + employee_mailinglist.Description + "\n\nRegards" + "\nReps On The Move Team";
+                client.Send(mail);
 
                 //db.employee_mailinglist.Add(employee_mailinglist);
                 //db.SaveChanges();

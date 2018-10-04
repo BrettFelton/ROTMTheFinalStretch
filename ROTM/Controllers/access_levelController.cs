@@ -110,10 +110,20 @@ namespace ROTM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            access_level access_level = db.access_level.Find(id);
-            db.access_level.Remove(access_level);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var check = db.employees.Where(s => s.Address_ID == id).FirstOrDefault();
+
+            if (check == null)
+            {
+                access_level access_level = db.access_level.Find(id);
+                db.access_level.Remove(access_level);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewBag.Error = "Can't delete a access level that is in-use please add a new access level instead.";
+                return View();
+            }
         }
 
         protected override void Dispose(bool disposing)

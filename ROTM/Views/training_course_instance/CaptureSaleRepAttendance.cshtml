@@ -12,55 +12,62 @@
 @using (Html.BeginForm("CaptureSaleRepAttendance", "Training_Course_Instance", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    <table class="table">
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Replied_Going)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Actual_Attendance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.employee.Employee_Name)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.training_course_instance.Training_Course_Instance_ID)
+            </th>*@
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+            
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Replied_Going)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Actual_Attendance)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.employee.Employee_Name)
-            </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.training_course_instance.Training_Course_Instance_ID)
-                </th>*@
-            <th></th>
+            @*<td>
+                @Html.HiddenFor(modelItem => item.Employee_ID)
+            </td>
+            <td>
+                @Html.HiddenFor(modelItem => item.Training_Course_Instance_ID)
+            </td>*@
+            <td>
+                @*@Html.DisplayFor(modelItem => item.Replied_Going)*@
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(modelItem => item.Replied_Going)
+                        @Html.ValidationMessageFor(modelItem => item.Replied_Going, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(modelItem => item.Actual_Attendance)
+                        @Html.ValidationMessageFor(modelItem => item.Actual_Attendance, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                @*@Html.DisplayFor(modelItem => item.Actual_Attendance)*@
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.employee.Employee_Name)
+            </td>
+            <td>
+                @Html.HiddenFor(modelItem => item.Training_Course_Instance_ID)
+            </td>
+
         </tr>
+    }
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @*@Html.DisplayFor(modelItem => item.Replied_Going)*@
-                    <div class="col-md-10">
-                        <div class="checkbox">
-                            @Html.EditorFor(modelItem => item.Replied_Going)
-                            @Html.ValidationMessageFor(modelItem => item.Replied_Going, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="col-md-10">
-                        <div class="checkbox">
-                            @Html.EditorFor(modelItem => item.Actual_Attendance)
-                            @Html.ValidationMessageFor(modelItem => item.Actual_Attendance, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    @*@Html.DisplayFor(modelItem => item.Actual_Attendance)*@
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.employee.Employee_Name)
-                </td>
-                <td>
-                    @Html.HiddenFor(modelItem => item.Training_Course_Instance_ID)
-                </td>
-
-            </tr>
-        }
-
-    </table>
+</table>
     <p>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

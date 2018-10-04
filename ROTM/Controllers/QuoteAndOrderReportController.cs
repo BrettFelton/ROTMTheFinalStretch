@@ -1,4 +1,5 @@
 ﻿using CrystalDecisions.CrystalReports.Engine;
+using ROTM.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,14 +19,17 @@ namespace ROTM.Controllers
         // GET: ActualBookingReport
         public ActionResult Index()
         {
-            //var employee = db.employees.ToList();
-            return View(/*employee*/);
+            return View();
         }
 
-        public ActionResult QuoteOrderReportBookings()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(QuoteAndOrderReportViewModel model)
         {
+            //if (!model.fromDate.HasValue) model.fromDate = DateTime.Now.Date;
+
             List<quote> allqu = new List<quote>();
-            allqu = db.quotes.ToList();
+            allqu = db.quotes.Where(s => s.Quote_Date == model.fromDate).ToList();
 
             PropertyDescriptorCollection properties =
             TypeDescriptor.GetProperties(typeof(quote));
