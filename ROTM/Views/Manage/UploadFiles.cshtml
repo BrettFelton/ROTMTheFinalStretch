@@ -3,45 +3,115 @@
     ViewBag.Title = "Profile Picture";
 }
 
+@*<script type="text/jscript">
+
+        function FindFileSize(fileid) {
+            try {
+                var fSize = 0;
+                if ($.browser.msie) {
+                    var obj = new ActiveXObject("Scripting.FileSystemObject"); var filePath = $("#" + fileid)[0].value;
+                    var fileo = obj.getFile(filePath);
+                    var fSize = fileo.size;
+                    fSize = fSize / 1048576;
+                }
+                else {
+                    fSize = $("#" + fileid)[0].files[0].size
+                    fSize = fSize / 1048576;
+                }
+                return fSize;
+            }
+            catch (e) {
+                alert("Error occured :" + e);
+            }
+        }
+
+        function getNameFromPath(strFilesource) {
+            var OBJ = new RegExp();
+            var sName = OBJ.exec(strFilsource);
+            if (sName == null) {
+                return null;
+            }
+            else {
+                return sName[0];
+            }
+        }
+
+        $(function () {
+            $("#record").change(function () {
+                var record = getNameFromPath($(this).val());
+
+                if (record != null) {
+                    var suffix = file.substr((file.lastIndexOf('.') + 1));
+
+                    switch (suffix) {
+                        case 'jpg':
+                        case 'png':
+                        case 'gif':
+                        case 'pdf':
+                            flag = true;
+                            break;
+                        default:
+                            flag = false;
+                    }
+                }
+
+                if (flag == false) {
+                    $(".lifile > span").text("Extension of file that can be upload jpg,png,gif,pdf extension file");
+                    return false;
+                }
+                else {
+                    var size = GetFileSize('file');
+                    if (size > 3) {
+                        $(".lifile > span").text("The Uploading file Size 3 MB");
+                    }
+                    else {
+                        $(".lifile > span").text("");
+                    }
+                }
+            });
+        });
+    </script>*@
+
 @using (Html.BeginForm("UploadFiles", "Manage", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.files, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(model => model.files, "", new { @type = "file", @multiple = "multiple" })
-            @Html.ValidationMessageFor(model => model.files, "", new { @class = "text-danger" })
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.file, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="lifile" @*class="col-md-10"*@>
+                @Html.TextBoxFor(model => model.file, "", new { @type = "file", @multiple = "multiple" })
+                @Html.ValidationMessageFor(model => model.file, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Upload" class="btn btn-primary" />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Upload" class="btn btn-primary" />
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10 text-success">
-            @ViewBag.UploadStatus
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10 text-success">
+                @ViewBag.UploadStatus
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10 text-danger">
-            @ViewBag.Error
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10 text-danger">
+                @ViewBag.Error
+            </div>
+        </div>
+
+        @*<div class="display-field">
+                <img src="@Url.Content(Model.filepath)" width="100" height="80" alt="" />
+            </div>*@
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">@Html.ActionLink("Back to Account Management", "Index", "Manage")</div>
         </div>
     </div>
-
-    @*<div class="display-field">
-            <img src="@Url.Content(Model.filepath)" width="100" height="80" alt="" />
-        </div>*@
-    <div  class="form-group">
-        <div class="col-md-offset-2 col-md-10">@Html.ActionLink("Back to Account Management", "Index", "Manage")</div>
-    </div>
-</div>
 }
+
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>  
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

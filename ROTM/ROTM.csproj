@@ -585,6 +585,7 @@
     <Content Include="Views\ProjectedBookings\Index.cshtml" />
     <Content Include="Views\TrainingReport\Index.cshtml" />
     <Content Include="Views\Manage\UploadFiles.cshtml" />
+    <Content Include="Views\training_course_instance\EditSalesRepAttendance.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

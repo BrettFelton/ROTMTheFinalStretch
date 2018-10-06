@@ -11,7 +11,8 @@ namespace ROTM
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class quote
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,6 +24,10 @@ namespace ROTM
         public int Quote_ID { get; set; }
         public string Quote_Name { get; set; }
         public string Quote_Ref_Num { get; set; }
+
+        [Required]
+        [Display(Name = "Date")]
+        [DataType(DataType.Date)]
         public Nullable<System.DateTime> Quote_Date { get; set; }
         public string Quote_Price { get; set; }
         public Nullable<int> Quote_Status_ID { get; set; }

@@ -222,190 +222,224 @@ namespace ROTM.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult UploadFiles(HttpPostedFileBase files)
+        public ActionResult UploadFiles(ProfilePicture files)
         {
             var userId = System.Web.HttpContext.Current.Session["UserID"] as String;
             int IntID = Convert.ToInt32(userId);
 
-            //Ensure model state is valid  
             if (ModelState.IsValid)
+
             {
-                //Checking file is available to save.  
-                if (files != null)
-                {
-                    var InputFileName = Path.GetFileName(files.FileName);
 
-                    string p = Path.GetExtension(files.FileName).ToLower();
+                var Nameofrecord = Path.GetFileName(files.file.FileName);
+                var sourcepath = Path.Combine(Server.MapPath("~/ProfilePictures/") + Nameofrecord);
+                files.file.SaveAs(sourcepath);
 
-                    if (p == ".png" || p == ".jpg" || p == ".gif" || p == ".bmp")
-                    {
-                        var ServerSavePath = Path.Combine(Server.MapPath("~/ProfilePictures/") + InputFileName);
-                        //Save file to server folder  
-                        files.SaveAs(ServerSavePath);
+                ViewBag.UploadStatus = "Your file Uploaded successfully";
 
-                        employee employee = db.employees.Find(IntID);
-                        employee.Employee_Avatar = InputFileName;
+                employee employee = db.employees.Find(IntID);
+                employee.Employee_Avatar = Nameofrecord;
+
+                db.Entry(employee).State = EntityState.Modified;
+                db.SaveChanges();
 
 
-                        db.Entry(employee).State = EntityState.Modified;
-                        db.SaveChanges();
+                ModelState.Clear();
 
-                        //assigning file uploaded status to ViewBag for showing message to user.  
-                        ViewBag.UploadStatus = "File uploaded successfully. Click the link below to go back to Account Management";
-                    }
-                    else
-                    {
-                        ViewBag.Error = "Please select and image type of .png, .jpg, .gif or .bmp";
-                    }
 
-                   
-                }
 
             }
+
             return View();
+
         }
 
-    //        //
-    //        // POST: /Manage/RemoveLogin
-    //        [HttpPost]
-    //        [ValidateAntiForgeryToken]
-    //        public async Task<ActionResult> RemoveLogin(string loginProvider, string providerKey)
-    //        {
-    //            ManageMessageId? message;
-    //            var result = await UserManager.RemoveLoginAsync(User.Identity.GetUserId(), new UserLoginInfo(loginProvider, providerKey));
-    //            if (result.Succeeded)
-    //            {
-    //                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-    //                if (user != null)
-    //                {
-    //                    await SignInUser.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-    //                }
-    //                message = ManageMessageId.RemoveLoginSuccess;
-    //            }
-    //            else
-    //            {
-    //                message = ManageMessageId.Error;
-    //            }
-    //            return RedirectToAction("ManageLogins", new { Message = message });
-    //        }
 
-    //        //
-    //        // GET: /Manage/AddPhoneNumber
-    //        public ActionResult AddPhoneNumber()
-    //        {
-    //            return View();
-    //        }
+//Ensure model state is valid  
+//if (ModelState.IsValid)
+//{
+//    //Checking file is available to save.  
+//    if (files != null && (files.ContentLength/1024) <=  2500)
+//    {
+//        var InputFileName = Path.GetFileName(files.FileName);
 
-    //        //
-    //        // POST: /Manage/AddPhoneNumber
-    //        [HttpPost]
-    //        [ValidateAntiForgeryToken]
-    //        public async Task<ActionResult> AddPhoneNumber(AddPhoneNumberViewModel model)
-    //        {
-    //            if (!ModelState.IsValid)
-    //            {
-    //                return View(model);
-    //            }
-    //            // Generate the token and send it
-    //            var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), model.Number);
-    //            if (UserManager.SmsService != null)
-    //            {
-    //                var message = new IdentityMessage
-    //                {
-    //                    Destination = model.Number,
-    //                    Body = "Your security code is: " + code
-    //                };
-    //                await UserManager.SmsService.SendAsync(message);
-    //            }
-    //            return RedirectToAction("VerifyPhoneNumber", new { PhoneNumber = model.Number });
-    //        }
+//        string p = Path.GetExtension(files.FileName).ToLower();
 
-    //        //
-    //        // POST: /Manage/EnableTwoFactorAuthentication
-    //        [HttpPost]
-    //        [ValidateAntiForgeryToken]
-    //        public async Task<ActionResult> EnableTwoFactorAuthentication()
-    //        {
-    //            await UserManager.SetTwoFactorEnabledAsync(User.Identity.GetUserId(), true);
-    //            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-    //            if (user != null)
-    //            {
-    //                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-    //            }
-    //            return RedirectToAction("Index", "Manage");
-    //        }
+//        if (p == ".png" || p == ".jpg" || p == ".gif" || p == ".bmp")
+//        {
+//            var ServerSavePath = Path.Combine(Server.MapPath("~/ProfilePictures/") + InputFileName);
+//            //Save file to server folder  
+//            files.SaveAs(ServerSavePath);
 
-    //        //
-    //        // POST: /Manage/DisableTwoFactorAuthentication
-    //        [HttpPost]
-    //        [ValidateAntiForgeryToken]
-    //        public async Task<ActionResult> DisableTwoFactorAuthentication()
-    //        {
-    //            await UserManager.SetTwoFactorEnabledAsync(User.Identity.GetUserId(), false);
-    //            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-    //            if (user != null)
-    //            {
-    //                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-    //            }
-    //            return RedirectToAction("Index", "Manage");
-    //        }
+//            employee employee = db.employees.Find(IntID);
+//            employee.Employee_Avatar = InputFileName;
 
-    //        //
-    //        // GET: /Manage/VerifyPhoneNumber
-    //        public async Task<ActionResult> VerifyPhoneNumber(string phoneNumber)
-    //        {
-    //            var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), phoneNumber);
-    //            // Send an SMS through the SMS provider to verify the phone number
-    //            return phoneNumber == null ? View("Error") : View(new VerifyPhoneNumberViewModel { PhoneNumber = phoneNumber });
-    //        }
 
-    //        //
-    //        // POST: /Manage/VerifyPhoneNumber
-    //        [HttpPost]
-    //        [ValidateAntiForgeryToken]
-    //        public async Task<ActionResult> VerifyPhoneNumber(VerifyPhoneNumberViewModel model)
-    //        {
-    //            if (!ModelState.IsValid)
-    //            {
-    //                return View(model);
-    //            }
-    //            var result = await UserManager.ChangePhoneNumberAsync(User.Identity.GetUserId(), model.PhoneNumber, model.Code);
-    //            if (result.Succeeded)
-    //            {
-    //                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-    //                if (user != null)
-    //                {
-    //                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-    //                }
-    //                return RedirectToAction("Index", new { Message = ManageMessageId.AddPhoneSuccess });
-    //            }
-    //            // If we got this far, something failed, redisplay form
-    //            ModelState.AddModelError("", "Failed to verify phone");
-    //            return View(model);
-    //        }
+//            db.Entry(employee).State = EntityState.Modified;
+//            db.SaveChanges();
 
-    //        //
-    //        // POST: /Manage/RemovePhoneNumber
-    //        [HttpPost]
-    //        [ValidateAntiForgeryToken]
-    //        public async Task<ActionResult> RemovePhoneNumber()
-    //        {
-    //            var result = await UserManager.SetPhoneNumberAsync(User.Identity.GetUserId(), null);
-    //            if (!result.Succeeded)
-    //            {
-    //                return RedirectToAction("Index", new { Message = ManageMessageId.Error });
-    //            }
-    //            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-    //            if (user != null)
-    //            {
-    //                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-    //            }
-    //            return RedirectToAction("Index", new { Message = ManageMessageId.RemovePhoneSuccess });
-    //        }
+//            ViewBag.UploadStatus = (files.ContentLength / 1024).ToString();
 
-    //        //
-    //        // GET: /Manage/ChangePassword
-    public ActionResult ChangePassword()
+//            //assigning file uploaded status to ViewBag for showing message to user.  
+//            //ViewBag.UploadStatus = "File uploaded successfully. Click the link below to go back to Account Management";
+//        }
+//        else
+//        {
+//            ViewBag.Error = "Please select and image type of .png, .jpg, .gif or .bmp";
+//        }
+
+
+//    }
+//    else
+//    {
+//        ViewBag.Error = "File size to big. Please don't exceed the limit of 2.5 megabytes for a file size.";
+//    }
+
+//}
+//    return View();
+//}
+
+//        //
+//        // POST: /Manage/RemoveLogin
+//        [HttpPost]
+//        [ValidateAntiForgeryToken]
+//        public async Task<ActionResult> RemoveLogin(string loginProvider, string providerKey)
+//        {
+//            ManageMessageId? message;
+//            var result = await UserManager.RemoveLoginAsync(User.Identity.GetUserId(), new UserLoginInfo(loginProvider, providerKey));
+//            if (result.Succeeded)
+//            {
+//                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+//                if (user != null)
+//                {
+//                    await SignInUser.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+//                }
+//                message = ManageMessageId.RemoveLoginSuccess;
+//            }
+//            else
+//            {
+//                message = ManageMessageId.Error;
+//            }
+//            return RedirectToAction("ManageLogins", new { Message = message });
+//        }
+
+//        //
+//        // GET: /Manage/AddPhoneNumber
+//        public ActionResult AddPhoneNumber()
+//        {
+//            return View();
+//        }
+
+//        //
+//        // POST: /Manage/AddPhoneNumber
+//        [HttpPost]
+//        [ValidateAntiForgeryToken]
+//        public async Task<ActionResult> AddPhoneNumber(AddPhoneNumberViewModel model)
+//        {
+//            if (!ModelState.IsValid)
+//            {
+//                return View(model);
+//            }
+//            // Generate the token and send it
+//            var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), model.Number);
+//            if (UserManager.SmsService != null)
+//            {
+//                var message = new IdentityMessage
+//                {
+//                    Destination = model.Number,
+//                    Body = "Your security code is: " + code
+//                };
+//                await UserManager.SmsService.SendAsync(message);
+//            }
+//            return RedirectToAction("VerifyPhoneNumber", new { PhoneNumber = model.Number });
+//        }
+
+//        //
+//        // POST: /Manage/EnableTwoFactorAuthentication
+//        [HttpPost]
+//        [ValidateAntiForgeryToken]
+//        public async Task<ActionResult> EnableTwoFactorAuthentication()
+//        {
+//            await UserManager.SetTwoFactorEnabledAsync(User.Identity.GetUserId(), true);
+//            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+//            if (user != null)
+//            {
+//                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+//            }
+//            return RedirectToAction("Index", "Manage");
+//        }
+
+//        //
+//        // POST: /Manage/DisableTwoFactorAuthentication
+//        [HttpPost]
+//        [ValidateAntiForgeryToken]
+//        public async Task<ActionResult> DisableTwoFactorAuthentication()
+//        {
+//            await UserManager.SetTwoFactorEnabledAsync(User.Identity.GetUserId(), false);
+//            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+//            if (user != null)
+//            {
+//                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+//            }
+//            return RedirectToAction("Index", "Manage");
+//        }
+
+//        //
+//        // GET: /Manage/VerifyPhoneNumber
+//        public async Task<ActionResult> VerifyPhoneNumber(string phoneNumber)
+//        {
+//            var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), phoneNumber);
+//            // Send an SMS through the SMS provider to verify the phone number
+//            return phoneNumber == null ? View("Error") : View(new VerifyPhoneNumberViewModel { PhoneNumber = phoneNumber });
+//        }
+
+//        //
+//        // POST: /Manage/VerifyPhoneNumber
+//        [HttpPost]
+//        [ValidateAntiForgeryToken]
+//        public async Task<ActionResult> VerifyPhoneNumber(VerifyPhoneNumberViewModel model)
+//        {
+//            if (!ModelState.IsValid)
+//            {
+//                return View(model);
+//            }
+//            var result = await UserManager.ChangePhoneNumberAsync(User.Identity.GetUserId(), model.PhoneNumber, model.Code);
+//            if (result.Succeeded)
+//            {
+//                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+//                if (user != null)
+//                {
+//                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+//                }
+//                return RedirectToAction("Index", new { Message = ManageMessageId.AddPhoneSuccess });
+//            }
+//            // If we got this far, something failed, redisplay form
+//            ModelState.AddModelError("", "Failed to verify phone");
+//            return View(model);
+//        }
+
+//        //
+//        // POST: /Manage/RemovePhoneNumber
+//        [HttpPost]
+//        [ValidateAntiForgeryToken]
+//        public async Task<ActionResult> RemovePhoneNumber()
+//        {
+//            var result = await UserManager.SetPhoneNumberAsync(User.Identity.GetUserId(), null);
+//            if (!result.Succeeded)
+//            {
+//                return RedirectToAction("Index", new { Message = ManageMessageId.Error });
+//            }
+//            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+//            if (user != null)
+//            {
+//                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+//            }
+//            return RedirectToAction("Index", new { Message = ManageMessageId.RemovePhoneSuccess });
+//        }
+
+//        //
+//        // GET: /Manage/ChangePassword
+public ActionResult ChangePassword()
     {
         return View();
     }

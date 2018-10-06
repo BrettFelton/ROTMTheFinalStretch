@@ -253,22 +253,61 @@ namespace ROTM.Controllers
         }
 
         // POST: training_course_instance/Delete/5
-        [HttpPost, ActionName("CaptureSaleRepAttendance")]
+        //[HttpPost, ActionName("CaptureSaleRepAttendance")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult CaptureSaleRepAttendance([Bind(Include = "Training_Course_Instance_ID,Employee_ID,Replied_Going,Actual_Attendance")] attendance[] attendance)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        //attendance = db.attendances.Include(a => a.employee).Include(a => a.training_course_instance).Where(a => a.Training_Course_Instance_ID == id);
+        //        //attendance.Actual_Attendance = attendance.Actual_Attendance;
+        //        //db.Entry(attendance).State = EntityState.Modified;
+        //        //db.SaveChanges();
+        //        return RedirectToAction("EditSalesRepAttendance");
+        //    }
+        //    //ViewBag.Employee_ID = new SelectList(db.employees, "Employee_ID", "Employee_Name", attendance.Employee_ID);
+        //    //ViewBag.Training_Course_Instance_ID = new SelectList(db.training_course_instance, "Training_Course_Instance_ID", "Training_Course_Instance_ID", attendance.Training_Course_Instance_ID);
+        //    return View(attendance);
+        //}
+
+        // GET: attendances/Edit/5
+        public ActionResult EditSalesRepAttendance(int? id, int? id2)
+        {
+            if (id == null && id2 == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var chkUser = (from s in db.attendances where s.Employee_ID == id && s.Training_Course_Instance_ID == id2 select s).FirstOrDefault();
+            //attendance attendance = db.attendances.Where(s=> s.Employee_ID == id && s.Training_Course_Instance_ID == id2);
+            if (chkUser == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.Employee_ID = new SelectList(db.employees, "Employee_ID", "Employee_Name", chkUser.Employee_ID);
+            ViewBag.Training_Course_Instance_ID = new SelectList(db.training_course_instance, "Training_Course_Instance_ID", "Training_Course_Instance_ID", chkUser.Training_Course_Instance_ID);
+            return View(chkUser);
+        }
+
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CaptureSaleRepAttendance([Bind(Include = "Training_Course_Instance_ID,Employee_ID,Replied_Going,Actual_Attendance")] attendance[] attendance)
+        public ActionResult EditSalesRepAttendance([Bind(Include = "Training_Course_Instance_ID,Employee_ID,Replied_Going,Actual_Attendance")] attendance attendance)
         {
             if (ModelState.IsValid)
             {
-                //attendance = db.attendances.Include(a => a.employee).Include(a => a.training_course_instance).Where(a => a.Training_Course_Instance_ID == id);
-                //attendance.Actual_Attendance = attendance.Actual_Attendance;
                 db.Entry(attendance).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                ViewBag.Success = "Sales rep attendance updated, Please click back to list.";
+
+                return View(attendance);
+                //return RedirectToAction("CaptureSaleRepAttendance",attendance.Training_Course_Instance_ID);
             }
-            //ViewBag.Employee_ID = new SelectList(db.employees, "Employee_ID", "Employee_Name", attendance.Employee_ID);
-            //ViewBag.Training_Course_Instance_ID = new SelectList(db.training_course_instance, "Training_Course_Instance_ID", "Training_Course_Instance_ID", attendance.Training_Course_Instance_ID);
+            ViewBag.Employee_ID = new SelectList(db.employees, "Employee_ID", "Employee_Name", attendance.Employee_ID);
+            ViewBag.Training_Course_Instance_ID = new SelectList(db.training_course_instance, "Training_Course_Instance_ID", "Training_Course_Instance_ID", attendance.Training_Course_Instance_ID);
             return View(attendance);
         }
+
 
         protected override void Dispose(bool disposing)
         {

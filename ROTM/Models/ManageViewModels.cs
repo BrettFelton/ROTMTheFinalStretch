@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
@@ -23,10 +24,38 @@ namespace ROTM.Models
     {
         [Required(ErrorMessage = "Please select file.")]
         [Display(Name = "Browse File")]
-        public HttpPostedFileBase files { get; set; }
+        [ValidateFile]
+        public HttpPostedFileBase file { get; set; }
     }
 
-    public class UpdateProfileAddress : address
+
+    public class ValidateFileAttribute : ValidationAttribute
+    {
+        public override bool IsValid(object value)
+        {
+            int MaxContentLength = 1024 * 1024 * 3;
+            string[] AllowedFileExtensions = new string[] { ".jpg", ".gif", ".png", ".pdf" };
+            var file = value as HttpPostedFileBase;
+            if (file == null)
+                return false;
+            else if (!AllowedFileExtensions.Contains(file.FileName.Substring(file.FileName.LastIndexOf('.'))))
+            {
+                ErrorMessage = "Upload File Photo Type: " + string.Join(", ", AllowedFileExtensions);
+                return false;
+            }
+            else if (file.ContentLength > MaxContentLength)
+            {
+                ErrorMessage = "The Size of Photo is too large. The file size is: "+ (file.ContentLength/1024) + "KB. Maximum file size is: " + (MaxContentLength / 1024).ToString() + "KB";
+                return false;
+            }
+            else
+                return true;
+
+        }
+    }
+
+
+public class UpdateProfileAddress : address
     {
         //[Required]
         //[Display(Name = "Street Name")]

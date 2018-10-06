@@ -78,7 +78,7 @@ namespace ROTM.Controllers
                 client.Credentials = new System.Net.NetworkCredential("no-reply@repsonthemove.com", "k1Yvi2&5");
                 client.Host = "nl1-wss2.a2hosting.com";
                 mail.Subject = "Registration Token";
-                mail.Body = "Hi " + registration_token.New_Email + "\n\nHere is you registration token: " + Convert.ToBase64String(randomBytes) + "\n\nRegards" + "\nReps On The Move Team";
+                mail.Body = "Hi there! \n\n You have registered with email address: " + registration_token.New_Email + "\n\nHere is you registration token: " + Convert.ToBase64String(randomBytes) + "\n\nRegards" + "\nReps On The Move Team";
                 client.Send(mail);
 
 

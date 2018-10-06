@@ -1,0 +1,57 @@
+﻿@model ROTM.attendance
+
+@{
+    ViewBag.Title = "EditSalesRepAttendance";
+}
+
+<h2>Edit Sales Rep Attendance</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h3>Attendance</h3>
+        <h4 class="text-success">@ViewBag.Success</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Training_Course_Instance_ID)
+
+        @Html.HiddenFor(model => model.Employee_ID)
+
+        <div class="form-group">
+            @Html.HiddenFor(model => model.Replied_Going, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.HiddenFor(model => model.Replied_Going)
+                    @Html.ValidationMessageFor(model => model.Replied_Going, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Actual_Attendance, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Actual_Attendance)
+                    @Html.ValidationMessageFor(model => model.Actual_Attendance, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default"/>
+            </div>
+        </div>
+    </div>
+}
+
+    <div>
+        @Html.ActionLink("Back To List", "CaptureSaleRepAttendance", new { id = Model.Training_Course_Instance_ID })
+    </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

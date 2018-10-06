@@ -6,12 +6,10 @@
 
 <h2>View</h2>
 
+
 @*<p>
-        @Html.ActionLink("Create New", "Create")
-    </p>*@
-@using (Html.BeginForm("CaptureSaleRepAttendance", "Training_Course_Instance", FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
+    @Html.ActionLink("Create New", "Create")
+</p>*@
 <table class="table">
     <tr>
         <th>
@@ -24,97 +22,149 @@
             @Html.DisplayNameFor(model => model.employee.Employee_Name)
         </th>
         @*<th>
-                @Html.DisplayNameFor(model => model.training_course_instance.Training_Course_Instance_ID)
-            </th>*@
+            @Html.DisplayNameFor(model => model.training_course_instance.training_course.Training_Course_Name)
+        </th>*@
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
-            
         <tr>
-            @*<td>
-                @Html.HiddenFor(modelItem => item.Employee_ID)
+            <td>
+                @Html.DisplayFor(modelItem => item.Replied_Going)
             </td>
             <td>
-                @Html.HiddenFor(modelItem => item.Training_Course_Instance_ID)
-            </td>*@
-            <td>
-                @*@Html.DisplayFor(modelItem => item.Replied_Going)*@
-                <div class="col-md-10">
-                    <div class="checkbox">
-                        @Html.EditorFor(modelItem => item.Replied_Going)
-                        @Html.ValidationMessageFor(modelItem => item.Replied_Going, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="col-md-10">
-                    <div class="checkbox">
-                        @Html.EditorFor(modelItem => item.Actual_Attendance)
-                        @Html.ValidationMessageFor(modelItem => item.Actual_Attendance, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                @*@Html.DisplayFor(modelItem => item.Actual_Attendance)*@
+                @Html.DisplayFor(modelItem => item.Actual_Attendance)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.employee.Employee_Name)
             </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.training_course_instance.Training_Course_Instance_ID)
+            </td>*@
             <td>
-                @Html.HiddenFor(modelItem => item.Training_Course_Instance_ID)
+                @Html.ActionLink("Capture Attendance", "EditSalesRepAttendance", new { id=item.Employee_ID, id2=item.Training_Course_Instance_ID })
+                @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+                @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
             </td>
-
         </tr>
     }
 
 </table>
-    <p>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+
+
+
+
+
+@*@*<p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+    @using (Html.BeginForm("CaptureSaleRepAttendance", "Training_Course_Instance", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Replied_Going)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Actual_Attendance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.employee.Employee_Name)
+            </th>
+            <th>
+                    @Html.DisplayNameFor(model => model.training_course_instance.Training_Course_Instance_ID)
+                </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>
+                    @Html.HiddenFor(modelItem => item.Employee_ID)
+                </td>
+                <td>
+                    @Html.HiddenFor(modelItem => item.Training_Course_Instance_ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Replied_Going)
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(modelItem => item.Replied_Going)
+                            @Html.ValidationMessageFor(modelItem => item.Replied_Going, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(modelItem => item.Actual_Attendance)
+                            @Html.ValidationMessageFor(modelItem => item.Actual_Attendance, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    @Html.DisplayFor(modelItem => item.Actual_Attendance)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.employee.Employee_Name)
+                </td>
+                <td>
+                    @Html.HiddenFor(modelItem => item.Training_Course_Instance_ID)
+                </td>
+
+            </tr>
+        }
+
+    </table>
+        <p>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
             </div>
-        </div>
-    </p>
-    <p>
-        @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
-        @Html.ActionLink("Back To Training Course Instance", "Index", new { /* id=item.PrimaryKey */ })
-    </p>
-}
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
+        </p>
+        <p>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Back To Training Course Instance", "Index", new { /* id=item.PrimaryKey */ })
+        </p>
     }
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
 
-    @*@<div class="form-horizontal">
-        <h4>attendance</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Training_Course_Instance_ID)
+        @<div class="form-horizontal">
+            <h4>attendance</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Training_Course_Instance_ID)
 
-        @Html.HiddenFor(model => model.Employee_ID)
+            @Html.HiddenFor(model => model.Employee_ID)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Replied_Going, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Replied_Going)
-                    @Html.ValidationMessageFor(model => model.Replied_Going, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Replied_Going, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.Replied_Going)
+                        @Html.ValidationMessageFor(model => model.Replied_Going, "", new { @class = "text-danger" })
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Actual_Attendance, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Actual_Attendance)
-                    @Html.ValidationMessageFor(model => model.Actual_Attendance, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Actual_Attendance, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.Actual_Attendance)
+                        @Html.ValidationMessageFor(model => model.Actual_Attendance, "", new { @class = "text-danger" })
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>*@
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>*@
