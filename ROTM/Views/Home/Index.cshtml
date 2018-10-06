@@ -42,17 +42,20 @@
         </ul>
     </div>
     <div class="col-md-3">
-        <h2>Client Management</h2>
+        <h2>Client & Access level Management</h2>
         <ul>
             @*<li>@Html.ActionLink("Client Index", "Index", "Clients")</li>*@
             <li>@Html.ActionLink("Client Type", "Index", "Client_type")</li>
+            <li>@Html.ActionLink("Access Levels", "Index", "Access_Level")</li>
             @*<li>@Html.ActionLink("Client Rating Type", "Index", "Employee_type")<a asp-area="" asp-controller="Client_Rating" asp-action="">Client Rating</a></li>*@
         </ul>
     </div>
     <div class="col-md-3">
-        <h2>Access Level</h2>
+        <h2>Audit Trail & Backup and Restore</h2>
         <ul>
-            <li>@Html.ActionLink("Access Levels", "Index", "Access_Level")</li>
+            <li>@Html.ActionLink("Audit Trail", "Index", "audit_trail")</li>
+            <li>@Html.ActionLink("Back Up", "Index", "Access_Level")</li>
+            <li>@Html.ActionLink("Restore", "Index", "Access_Level")</li>
         </ul>
     </div>
     <div class="col-md-3">
@@ -101,4 +104,4 @@
             <li>@Html.ActionLink("Instructor Type", "Index", "Instructor_type")</li>
         </ul>
     </div>
-</div>    
+</div>

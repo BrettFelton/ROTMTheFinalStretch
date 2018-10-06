@@ -18,7 +18,7 @@
     </div>
     <div>
         <p class="text-warning">
-            The date will be defaulted to todays date even if you type in a name in the "From Date" and "To Date" areas.
+            The date will be defaulted to todays date.
         </p>
         <p>
             From Date: <input type="text" name="fromDate" value="@ViewData["fromDate"]" /> @*@Html.TextBox("fromDate", string.Format("{0:dd MMM yyy}", fromDate), new { @class = "datefield", type = "date" })*@

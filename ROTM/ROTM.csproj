@@ -252,6 +252,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActualBookingReportController.cs" />
     <Compile Include="Controllers\attendancesController.cs" />
+    <Compile Include="Controllers\audit_trailController.cs" />
+    <Compile Include="Controllers\BackUpController.cs" />
     <Compile Include="Controllers\booking_typeController.cs" />
     <Compile Include="Controllers\client_mailinglistController.cs" />
     <Compile Include="Controllers\client_typeController.cs" />
@@ -586,10 +588,16 @@
     <Content Include="Views\TrainingReport\Index.cshtml" />
     <Content Include="Views\Manage\UploadFiles.cshtml" />
     <Content Include="Views\training_course_instance\EditSalesRepAttendance.cshtml" />
+    <Content Include="Views\audit_trail\Create.cshtml" />
+    <Content Include="Views\audit_trail\Delete.cshtml" />
+    <Content Include="Views\audit_trail\Details.cshtml" />
+    <Content Include="Views\audit_trail\Edit.cshtml" />
+    <Content Include="Views\audit_trail\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="ProfilePictures\" />
+    <Folder Include="Views\BackUp\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

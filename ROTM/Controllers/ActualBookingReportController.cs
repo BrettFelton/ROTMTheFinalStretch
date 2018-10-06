@@ -41,9 +41,7 @@ namespace ROTM.Controllers
                     row[prop.Name] = prop.GetValue(item) ?? DBNull.Value;
                 table.Rows.Add(row);
             }
-
-
-
+            
             ReportDocument rd = new ReportDocument();
             rd.Load(Path.Combine(Server.MapPath("~/Reporting"), "ActualBookingsReport.rpt"));
             
