@@ -23,18 +23,18 @@ namespace ROTM.Controllers
         }
 
         // GET: employee_milestone/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, int? id2)
         {
-            if (id == null)
+            if (id == null && id2 == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            employee_milestone employee_milestone = db.employee_milestone.Find(id);
-            if (employee_milestone == null)
+            var empl = (from s in db.employee_milestone where s.Employee_ID == id && s.Milestone_ID == id2 select s).FirstOrDefault();
+            if (empl == null)
             {
                 return HttpNotFound();
             }
-            return View(employee_milestone);
+            return View(empl);
         }
 
         // GET: employee_milestone/Create
@@ -77,20 +77,22 @@ namespace ROTM.Controllers
         }
 
         // GET: employee_milestone/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id, int? id2)
         {
-            if (id == null)
+            if (id == null && id2 == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            employee_milestone employee_milestone = db.employee_milestone.Find(id);
-            if (employee_milestone == null)
+
+            var empl = (from s in db.employee_milestone where s.Employee_ID == id && s.Milestone_ID == id2 select s).FirstOrDefault();
+            //employee_milestone employee_milestone = db.employee_milestone.Find(id);
+            if (empl == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Employee_ID = new SelectList(db.employees, "Employee_ID", "Employee_Name", employee_milestone.Employee_ID);
-            ViewBag.Milestone_ID = new SelectList(db.milestones, "Milestone_ID", "Milestone_Name", employee_milestone.Milestone_ID);
-            return View(employee_milestone);
+            ViewBag.Employee_ID = new SelectList(db.employees, "Employee_ID", "Employee_Name", empl.Employee_ID);
+            ViewBag.Milestone_ID = new SelectList(db.milestones, "Milestone_ID", "Milestone_Name", empl.Milestone_ID);
+            return View(empl);
         }
 
         // POST: employee_milestone/Edit/5
@@ -112,27 +114,27 @@ namespace ROTM.Controllers
         }
 
         // GET: employee_milestone/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, int? id2)
         {
-            if (id == null)
+            if (id == null && id2 == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            employee_milestone employee_milestone = db.employee_milestone.Find(id);
-            if (employee_milestone == null)
+            var empl = (from s in db.employee_milestone where s.Employee_ID == id && s.Milestone_ID == id2 select s).FirstOrDefault();
+            if (empl == null)
             {
                 return HttpNotFound();
             }
-            return View(employee_milestone);
+            return View(empl);
         }
 
         // POST: employee_milestone/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id, int id2)
         {
-            employee_milestone employee_milestone = db.employee_milestone.Find(id);
-            db.employee_milestone.Remove(employee_milestone);
+            var empl = (from s in db.employee_milestone where s.Employee_ID == id && s.Milestone_ID == id2 select s).FirstOrDefault();
+            db.employee_milestone.Remove(empl);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

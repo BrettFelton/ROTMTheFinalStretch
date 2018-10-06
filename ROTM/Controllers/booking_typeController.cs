@@ -119,13 +119,25 @@ namespace ROTM.Controllers
         // POST: booking_type/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id, audit_trail audit)
         {
             var check = db.bookings.Where(s => s.Booking_Type_ID == id).FirstOrDefault();
 
             if (check == null)
             {
                 booking_type booking_type = db.booking_type.Find(id);
+
+                var userId = System.Web.HttpContext.Current.Session["UserID"] as String;
+                int IntID = Convert.ToInt32(userId);
+
+                audit.Employee_ID = IntID;
+                audit.Trail_DateTime = DateTime.Now.Date;
+                audit.Deleted_Record = booking_type.Booking_Type_ID.ToString() + " " + booking_type.Booking_Type_Name + " " + booking_type.Booking_Type_Description;
+                audit.Trail_Description = "Deleted a Booking Type";
+
+                db.audit_trail.Add(audit);
+
+
                 db.booking_type.Remove(booking_type);
                 db.SaveChanges();
                 return RedirectToAction("Index");

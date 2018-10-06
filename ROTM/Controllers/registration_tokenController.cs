@@ -24,20 +24,20 @@ namespace ROTM.Controllers
             return View(registration_token.ToList());
         }
 
-        //// GET: registration_token/Details/5
-        //public ActionResult Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    registration_token registration_token = db.registration_token.Find(id);
-        //    if (registration_token == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(registration_token);
-        //}
+        // GET: registration_token/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            registration_token registration_token = db.registration_token.Find(id);
+            if (registration_token == null)
+            {
+                return HttpNotFound();
+            }
+            return View(registration_token);
+        }
 
         // GET: registration_token/Create
         public ActionResult Create()

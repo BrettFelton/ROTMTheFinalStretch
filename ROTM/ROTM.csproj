@@ -264,6 +264,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\instructorsController.cs" />
     <Compile Include="Controllers\instructor_typeController.cs" />
+    <Compile Include="Controllers\mailing_listController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProjectedBookingsController.cs" />
     <Compile Include="Controllers\QuoteAndOrderReportController.cs" />
@@ -593,6 +594,11 @@
     <Content Include="Views\audit_trail\Details.cshtml" />
     <Content Include="Views\audit_trail\Edit.cshtml" />
     <Content Include="Views\audit_trail\Index.cshtml" />
+    <Content Include="Views\mailing_list\Create.cshtml" />
+    <Content Include="Views\mailing_list\Delete.cshtml" />
+    <Content Include="Views\mailing_list\Details.cshtml" />
+    <Content Include="Views\mailing_list\Edit.cshtml" />
+    <Content Include="Views\mailing_list\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

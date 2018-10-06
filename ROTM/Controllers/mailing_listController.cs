@@ -11,128 +11,117 @@ using ROTM;
 namespace ROTM.Controllers
 {
     [Authorize]
-    public class access_levelController : Controller
+    public class mailing_listController : Controller
     {
         private Entities db = new Entities();
 
-        // GET: access_level
+        // GET: mailing_list
         public ActionResult Index()
         {
-            return View(db.access_level.ToList());
+            return View(db.mailing_list.ToList());
         }
 
-        // GET: access_level/Details/5
+        // GET: mailing_list/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            access_level access_level = db.access_level.Find(id);
-            if (access_level == null)
+            mailing_list mailing_list = db.mailing_list.Find(id);
+            if (mailing_list == null)
             {
                 return HttpNotFound();
             }
-            return View(access_level);
+            return View(mailing_list);
         }
 
-        // GET: access_level/Create
+        // GET: mailing_list/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: access_level/Create
+        // POST: mailing_list/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Access_Level_ID,Access_Level_Name,Access_Level_Description")] access_level access_level)
+        public ActionResult Create([Bind(Include = "Mailing_List_ID,Mailing_List_Name,Mailing_List_Description")] mailing_list mailing_list)
         {
             if (ModelState.IsValid)
             {
-                db.access_level.Add(access_level);
+                db.mailing_list.Add(mailing_list);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(access_level);
+            return View(mailing_list);
         }
 
-        // GET: access_level/Edit/5
+        // GET: mailing_list/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            access_level access_level = db.access_level.Find(id);
-            if (access_level == null)
+            mailing_list mailing_list = db.mailing_list.Find(id);
+            if (mailing_list == null)
             {
                 return HttpNotFound();
             }
-            return View(access_level);
+            return View(mailing_list);
         }
 
-        // POST: access_level/Edit/5
+        // POST: mailing_list/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Access_Level_ID,Access_Level_Name,Access_Level_Description")] access_level access_level)
+        public ActionResult Edit([Bind(Include = "Mailing_List_ID,Mailing_List_Name,Mailing_List_Description")] mailing_list mailing_list)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(access_level).State = EntityState.Modified;
+                db.Entry(mailing_list).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(access_level);
+            return View(mailing_list);
         }
 
-        // GET: access_level/Delete/5
+        // GET: mailing_list/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            access_level access_level = db.access_level.Find(id);
-            if (access_level == null)
+            mailing_list mailing_list = db.mailing_list.Find(id);
+            if (mailing_list == null)
             {
                 return HttpNotFound();
             }
-            return View(access_level);
+            return View(mailing_list);
         }
 
-        // POST: access_level/Delete/5
+        // POST: mailing_list/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id, audit_trail audit)
+        public ActionResult DeleteConfirmed(int id)
         {
-            var check = db.employees.Where(s => s.Address_ID == id).FirstOrDefault();
+            var check = db.mailing_list.Where(s => s.Mailing_List_ID == id).FirstOrDefault();
 
             if (check == null)
             {
-                access_level access_level = db.access_level.Find(id);
-
-                var userId = System.Web.HttpContext.Current.Session["UserID"] as String;
-                int IntID = Convert.ToInt32(userId);
-
-                audit.Employee_ID = IntID;
-                audit.Trail_DateTime = DateTime.Now.Date;
-                audit.Deleted_Record = access_level.Access_Level_ID.ToString() + " " + access_level.Access_Level_Name + " " + access_level.Access_Level_Description ;
-                audit.Trail_Description = "Deleted a Access Level";
-
-                db.audit_trail.Add(audit);
-
-                db.access_level.Remove(access_level);
+                mailing_list mailing_list = db.mailing_list.Find(id);
+                db.mailing_list.Remove(mailing_list);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             else
             {
-                ViewBag.Error = "Can't delete a access level that is in-use please add a new access level instead.";
+                ViewBag.Error = "Can't delete a mailing list that is in-use please add a new mailing list instead.";
                 return View();
             }
         }

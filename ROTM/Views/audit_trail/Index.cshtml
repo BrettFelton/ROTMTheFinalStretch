@@ -6,6 +6,25 @@
 
 <h2>Index</h2>
 
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Search: <input type="text" name="SearchString" placeholder="E.g. Harry" value="@ViewData["currentFilter"]" />
+        </p>
+    </div>
+    <div>
+        <p class="text-warning">
+            The date will be defaulted to todays date.
+        </p>
+        <p>
+            From Date: <input type="text" name="fromDate" value="@ViewData["fromDate"]" />
+            To Date: <input type="text" name="toDate" value="@ViewData["toDate"]" /> 
+            <input type="submit" value="Search" class="btn btn-default" /> 
+            @*@Html.ActionLink("Show Todays Training Courses", "Index", "training_course_instance")*@
+        </p>
+    </div>
+</form>
+
 @*<p>
     @Html.ActionLink("Create New", "Create")
 </p>*@
