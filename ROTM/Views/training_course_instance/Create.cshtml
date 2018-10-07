@@ -19,54 +19,68 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Instance_Date, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Instance_Date, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Instance_Date, "", new { @class = "text-danger" })
+                <a href="#" data-toggle="tooltip" title="Enter the training course date">
+                    @Html.EditorFor(model => model.Instance_Date, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Instance_Date, "", new { @class = "text-danger" })
+                </a>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Instance_Start_Time, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Instance_Start_Time, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Instance_Start_Time, "", new { @class = "text-danger" })
+                <a href="#" data-toggle="tooltip" title="Enter the start time">
+                    @Html.EditorFor(model => model.Instance_Start_Time, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Instance_Start_Time, "", new { @class = "text-danger" })
+                </a>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Instance_End_Time, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Instance_End_Time, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Instance_End_Time, "", new { @class = "text-danger" })
+                <a href="#" data-toggle="tooltip" title="Enter the end time">
+                    @Html.EditorFor(model => model.Instance_End_Time, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Instance_End_Time, "", new { @class = "text-danger" })
+                </a>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Venue_ID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("Venue_ID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Venue_ID, "", new { @class = "text-danger" })
+                <a href="#" data-toggle="tooltip" title="Select the venue">
+                    @Html.DropDownList("Venue_ID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Venue_ID, "", new { @class = "text-danger" })
+                </a>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Instructor_ID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("Instructor_ID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Instructor_ID, "", new { @class = "text-danger" })
+                <a href="#" data-toggle="tooltip" title="Select the instructor name">
+                    @Html.DropDownList("Instructor_ID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Instructor_ID, "", new { @class = "text-danger" })
+                </a>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Training_Course_ID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("Training_Course_ID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Training_Course_ID, "", new { @class = "text-danger" })
+                <a href="#" data-toggle="tooltip" title="Select the training couse">
+                    @Html.DropDownList("Training_Course_ID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Training_Course_ID, "", new { @class = "text-danger" })
+                </a>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <a href="#" data-toggle="tooltip" title="Create new training course instance">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </a>
             </div>
         </div>
     </div>

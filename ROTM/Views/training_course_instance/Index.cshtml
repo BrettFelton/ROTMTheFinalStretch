@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Training Courses</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -23,7 +23,7 @@
         <p>
             From Date: <input type="text" name="fromDate" value="@ViewData["fromDate"]" /> @*@Html.TextBox("fromDate", string.Format("{0:dd MMM yyy}", fromDate), new { @class = "datefield", type = "date" })*@
             To Date: <input type="text" name="toDate" value="@ViewData["toDate"]" /> @*@Html.TextBox("toDate", string.Format("{0:dd MMM yyy}", fromDate), new { @class = "datefield", type = "date" })*@
-            <input type="submit" value="Search" class="btn btn-default" /> |
+                     <a href="#" data-toggle="tooltip" title="Search the trainging courses"><input type="submit" value="Search" class="btn btn-default" /></a> |
             @Html.ActionLink("Show Todays Training Courses", "Index", "training_course_instance")
         </p>
     </div>

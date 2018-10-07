@@ -21,38 +21,48 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Training_Course_Name, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Training_Course_Name, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Training_Course_Name, "", new { @class = "text-danger" })
+            <a href="#" data-toggle="tooltip" title="Enter the updated training course name">
+                @Html.EditorFor(model => model.Training_Course_Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Training_Course_Name, "", new { @class = "text-danger" })
+            </a>
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.Training_Course_Description, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Training_Course_Description, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Training_Course_Description, "", new { @class = "text-danger" })
+            <a href="#" data-toggle="tooltip" title="Enter a description for the above mentioned training course">
+                @Html.EditorFor(model => model.Training_Course_Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Training_Course_Description, "", new { @class = "text-danger" })
+            </a>
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.Employee_ID, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownList("Employee_ID", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Employee_ID, "", new { @class = "text-danger" })
+            <a href="#" data-toggle="tooltip" title="Select the employee name">
+                @Html.DropDownList("Employee_ID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Employee_ID, "", new { @class = "text-danger" })
+            </a>
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.Training_Course_Type_ID, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownList("Training_Course_Type_ID", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Training_Course_Type_ID, "", new { @class = "text-danger" })
+            <a href="#" data-toggle="tooltip" title="Select the training course type">
+                @Html.DropDownList("Training_Course_Type_ID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Training_Course_Type_ID, "", new { @class = "text-danger" })
+            </a>
         </div>
     </div>
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
+            <a href="#" data-toggle="tooltip" title="Update the training course">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </a>
         </div>
     </div>
 </div>

@@ -21,22 +21,28 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Course_Name, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Course_Name, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Course_Name, "", new { @class = "text-danger" })
+            <a href="#" data-toggle="tooltip" title="Enter the updated Training Course type">
+                @Html.EditorFor(model => model.Course_Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Course_Name, "", new { @class = "text-danger" })
+            </a>
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.Course_Description, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Course_Description, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Course_Description, "", new { @class = "text-danger" })
+            <a href="#" data-toggle="tooltip" title="Enter a description for the above mentioned Training Course Type">
+                @Html.EditorFor(model => model.Course_Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Course_Description, "", new { @class = "text-danger" })
+            </a>
         </div>
     </div>
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
+            <a href="#" data-toggle="tooltip" title="Update the Training Course Type">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </a>
         </div>
     </div>
 </div>
