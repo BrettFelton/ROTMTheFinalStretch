@@ -40,9 +40,9 @@
         <h2>Employee Management</h2>
         <ul>
             
-                <li>@Html.ActionLink("Employees", "Index", "Employees", new { Class = "action add", title = "Go to Employee screen" })</li>
-                <li>@Html.ActionLink("Employee Type", "Index", "Employee_type", new { Class = "action add", title = "Go to Employee Type screen" })</li>
-                <li>@Html.ActionLink("Generate Registration Token", "Create", "registration_token", new { Class = "action add", title = "Go to Generate Registration Token screen" })</li>
+                <li>@Html.ActionLink("Employees", "Index", "Employees")</li>
+                <li>@Html.ActionLink("Employee Type", "Index", "Employee_type")</li>
+                <li>@Html.ActionLink("Generate Registration Token", "Create", "registration_token")</li>
         </ul>
     </div>
     <div class="col-md-3">
@@ -50,25 +50,25 @@
         <ul>
             @*<li>@Html.ActionLink("Client Index", "Index", "Clients")</li>*@
             
-                <li>@Html.ActionLink("Client Type", "Index", "Client_type", new { Class = "action add", title = "Go to Client Type screen" })</li>
-                <li>@Html.ActionLink("Access Levels", "Index", "Access_Level", new { Class = "action add", title = "Go to Access Level screen" })</li>
+                <li>@Html.ActionLink("Client Type", "Index", "Client_type")</li>
+                <li>@Html.ActionLink("Access Levels", "Index", "Access_Level")</li>
                 @*<li>@Html.ActionLink("Client Rating Type", "Index", "Employee_type")<a asp-area="" asp-controller="Client_Rating" asp-action="">Client Rating</a></li>*@
         </ul>
     </div>
     <div class="col-md-3">
         <h2>Audit Trail & Backup and Restore</h2>
         <ul>
-                <li>@Html.ActionLink("Audit Trail", "Index", "audit_trail", new { Class = "action add", title = "Go to Audit Trail screen" })</li>
-                <li>@Html.ActionLink("Back Up", "Index", "Access_Level", new { Class = "action add", title = "Go to Database Backup screen" })</li>
-                <li>@Html.ActionLink("Restore", "Index", "Access_Level", new { Class = "action add", title = "Go to Database Restore screen" })</li>
+                <li>@Html.ActionLink("Audit Trail", "Index", "audit_trail")</li>
+                <li>@Html.ActionLink("Back Up", "Index", "Access_Level")</li>
+                <li>@Html.ActionLink("Restore", "Index", "Access_Level")</li>
         </ul>
     </div>
     <div class="col-md-3">
         <h2>Notifications</h2>
         <ul>
-            <li>@Html.ActionLink("Mailing List", "Index", "mailing_list", new { Class = "action add", title = "Go to Mailing List screen" })</li>
-            <li>@Html.ActionLink("General external marketing notification", "Create", "client_mailinglist", new { Class = "action add", title = "Go to External Marketing Notification screen" })</li>
-            <li>@Html.ActionLink("General internal notification", "Create", "employee_mailinglist", new { Class = "action add", title = "Go to Internal Notification screen" })</li>
+            <li>@Html.ActionLink("Mailing List", "Index", "mailing_list")</li>
+            <li>@Html.ActionLink("General external marketing notification", "Create", "client_mailinglist")</li>
+            <li>@Html.ActionLink("General internal notification", "Create", "employee_mailinglist")</li>
         </ul>
     </div>
 
@@ -77,37 +77,37 @@
     <div class="col-md-3">
         <h2>Reporting</h2>
         <ul>
-            <li>@Html.ActionLink("Quote and Order Report", "Index", "QuoteAndOrderReport", new { Class = "action add", title = "Go to Quote and Order Report screen" })</li>
-            <li>@Html.ActionLink("Weekly Progress Report", "Index", "WeeklyProgressReport", new { Class = "action add", title = "Go to Weekly Progress Report screen" })</li>
-            <li>@Html.ActionLink("Training Report", "Index", "TrainingReport", new { Class = "action add", title = "Go to Training Report screen" })</li>
-            <li>@Html.ActionLink("Projected Bookings Report", "Index", "ProjectedBookings", new { Class = "action add", title = "Go to Projected Bookings Report screen" })</li>
-            <li>@Html.ActionLink("Actual Bookings Report", "Index", "ActualBookingReport", new { Class = "action add", title = "Go to Actual Bookings Report screen" })</li>
+            <li>@Html.ActionLink("Quote and Order Report", "Index", "QuoteAndOrderReport")</li>
+            <li>@Html.ActionLink("Weekly Progress Report", "Index", "WeeklyProgressReport")</li>
+            <li>@Html.ActionLink("Training Report", "Index", "TrainingReport")</li>
+            <li>@Html.ActionLink("Projected Bookings Report", "Index")</li>
+            <li>@Html.ActionLink("Actual Bookings Report", "Index", "ActualBookingReport")</li>
         </ul>
     </div>
     <div class="col-md-3">
         <h2>Employee Milestone Management</h2>
         <ul>
-            <li>@Html.ActionLink("Milestones", "Index", "Task_Milestone", new { Class = "action add", title = "Go to Milestones screen" })</li>
-            <li>@Html.ActionLink("Setup Tasks", "Index", "Tasks", new { Class = "action add", title = "Go to Setup Tasks screen" })</li>
+            <li>@Html.ActionLink("Milestones", "Index", "Task_Milestone")</li>
+            <li>@Html.ActionLink("Setup Tasks", "Index", "Tasks")</li>
         </ul>
     </div>
     <div class="col-md-3">
         <h2>Venue Management</h2>
         <ul>
-            <li>@Html.ActionLink("Venues", "Index", "Venues", new { Class = "action add", title = "Go to Venues screen" })</li>
+            <li>@Html.ActionLink("Venues", "Index", "Venues")</li>
             @*<li>@Html.ActionLink("Address", "Index", "Addresses")</li>*@
             @*<li>@Html.ActionLink("Bookings", "Index", "bookings")</li>*@
-            <li>@Html.ActionLink("Booking Type", "Index", "booking_type", new { Class = "action add", title = "Go to Booking Type screen" })</li>
+            <li>@Html.ActionLink("Booking Type", "Index", "booking_type")</li>
         </ul>
     </div>
     <div class="col-md-3">
         <h2>Training Course Management</h2>
         <ul>
-            <li>@Html.ActionLink("Training Course", "Index", "Training_Course", new { Class = "action add", title = "Go to Training Course screen" })</li>
-            <li>@Html.ActionLink("Training Course Type", "Index", "Training_Course_type", new { Class = "action add", title = "Go to Training Course Type screen" })</li>
-            <li>@Html.ActionLink("Training Course Instance", "Index", "Training_Course_Instance", new { Class = "action add", title = "Go to Training Course Instance screen" })</li>
-            <li>@Html.ActionLink("Instructor", "Index", "Instructors", new { Class = "action add", title = "Go to Instructor screen" })</li>
-            <li>@Html.ActionLink("Instructor Type", "Index", "Instructor_type", new { Class = "action add", title = "Go to Instructor Type screen" })</li>
+            <li>@Html.ActionLink("Training Course", "Index", "Training_Course")</li>
+            <li>@Html.ActionLink("Training Course Type", "Index", "Training_Course_type")</li>
+            <li>@Html.ActionLink("Training Course Instance", "Index", "Training_Course_Instance")</li>
+            <li>@Html.ActionLink("Instructor", "Index", "Instructors")</li>
+            <li>@Html.ActionLink("Instructor Type", "Index", "Instructor_type")</li>
         </ul>
     </div>
 </div>

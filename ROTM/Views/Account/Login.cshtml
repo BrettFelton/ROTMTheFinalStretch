@@ -50,11 +50,11 @@ $(document).ready(function(){
                     </div>
                 </div>
                 <p>
-                    @Html.ActionLink("Register as a new user", "TokenRegister", "", new { Class = "action add", title = "If you are not registered on the Reps On The Move system, follow this link to register as a new user." })
+                    @Html.ActionLink("Register as a new user", "TokenRegister", new { Class = "action add", title = "If you are not registered on the Reps On The Move system, follow this link to register as a new user." })
                 </p>
                 //Enable this once you have account confirmation enabled for password reset functionality
                 <p>
-                    @Html.ActionLink("Forgot your password?", "ForgotPassword", "ForgotPassword", new { Class = "action add", title = "Having trouble signing is? Follow this link to reset your password." })
+                    @Html.ActionLink("Forgot your password?", "ForgotPassword", new { Class = "action add", title = "Having trouble signing is? Follow this link to reset your password." })
                 </p>
             }
         </section>
