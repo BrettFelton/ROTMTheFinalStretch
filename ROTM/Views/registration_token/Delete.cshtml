@@ -38,8 +38,16 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <a href="#" data-toggle="tooltip" title="Delete this registration token">
+                <input type="submit" value="Delete" class="btn btn-default" />
+            </a> |
             @Html.ActionLink("Back to List", "Index")
         </div>
     }
+
+    <script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+    </script>
 </div>

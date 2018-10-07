@@ -16,34 +16,44 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Registration_Token1, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Registration_Token1, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Registration_Token1, "", new { @class = "text-danger" })
+                <a href="#" data-toggle="tooltip" title="Please enter the updated registration token">
+                    @Html.EditorFor(model => model.Registration_Token1, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Registration_Token1, "", new { @class = "text-danger" })
+                </a>
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.New_Email, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.New_Email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.New_Email, "", new { @class = "text-danger" })
+                <a href="#" data-toggle="tooltip" title="Please enter the new employee's email">
+                    @Html.EditorFor(model => model.New_Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.New_Email, "", new { @class = "text-danger" })
+                </a>
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.Access_Level_ID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("Access_Level_ID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Access_Level_ID, "", new { @class = "text-danger" })
+                <a href="#" data-toggle="tooltip" title="Please select the new employee's access level">
+                    @Html.DropDownList("Access_Level_ID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Access_Level_ID, "", new { @class = "text-danger" })
+                </a>
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.Employee_ID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("Employee_ID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Employee_ID, "", new { @class = "text-danger" })
+                <a href="#" data-toggle="tooltip" title="Please select the employee">
+                    @Html.DropDownList("Employee_ID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Employee_ID, "", new { @class = "text-danger" })
+                </a>
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <a href="#" data-toggle="tooltip" title="Update the registration token">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </a>
             </div>
         </div>
     </div>

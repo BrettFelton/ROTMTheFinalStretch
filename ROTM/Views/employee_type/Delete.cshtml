@@ -35,9 +35,12 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
+    <div class="form-actions no-color">
+        <a href="#" data-toggle="tooltip" title="Delete the current employee? This is risky!">
+            <input type="submit" value="Delete" class="btn btn-default" />
+        </a> |
             @Html.ActionLink("Back to List", "Index")
-        </div>
+            
+    </div>
     }
 </div>
