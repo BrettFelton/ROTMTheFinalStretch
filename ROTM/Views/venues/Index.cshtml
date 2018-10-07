@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Venues</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -13,8 +13,8 @@
 <form asp-action="Index" method="get">
     <div class="form-actions no-color">
         <p>
-            Search: <input type="text" name="SearchString" placeholder="E.g. Conference Room" value="@ViewData["currentFilter"]" />
-            <input type="submit" value="Search" class="btn btn-default" /> |
+            Search: <a href="#" data-toggle="tooltip" title="Enter the venue to search"><input type="text" name="SearchString" placeholder="E.g. Conference Room" value="@ViewData["currentFilter"]" /></a>
+                    <a href="#" data-toggle="tooltip" title="Search venues"><input type="submit" value="Search" class="btn btn-default" /></a> |
             @Html.ActionLink("Show Full List", "Index", "Venues")
         </p>
     </div>

@@ -4,13 +4,13 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Setup Task</h2>
 
 <form asp-action="Index" method="get">
     <div class="form-actions no-color">
         <p>
-            Search: <input type="text" name="SearchString" placeholder="E.g. Submit Quote" value="@ViewData["currentFilter"]" />
-            <input type="submit" value="Search" class="btn btn-default" /> |
+            Search: <a href="#" data-toggle="tooltip" title="Enter the task name to search"><input type="text" name="SearchString" placeholder="E.g. Submit Quote" value="@ViewData["currentFilter"]" /></a>
+                    <a href="#" data-toggle="tooltip" title="Search tasks"><input type="submit" value="Search" class="btn btn-default" /></a> |
             @Html.ActionLink("Show Full List", "Index", "Tasks")
         </p>
     </div>
