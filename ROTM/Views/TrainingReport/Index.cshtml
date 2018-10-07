@@ -3,7 +3,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Generate Training Report</h2>
 
 @using (Html.BeginForm())
 {
@@ -13,14 +13,18 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Employee_ID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("Employee_ID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Employee_ID, "", new { @class = "text-danger" })
+                <a href="#" data-toggle="tooltip" title="Generate and download the Training Report">
+                    @Html.DropDownList("Employee_ID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Employee_ID, "", new { @class = "text-danger" })
+                </a>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Download Report" class="btn btn-default" />
+                <a href="#" data-toggle="tooltip" title="Generate and download the Training report">
+                    <input type="submit" value="Download Report" class="btn btn-default" />
+                </a>
             </div>
         </div>
     </div>

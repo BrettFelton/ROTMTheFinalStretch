@@ -4,12 +4,12 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Audit Trail</h2>
 
 <form asp-action="Index" method="get">
     <div class="form-actions no-color">
         <p>
-            Search: <input type="text" name="SearchString" placeholder="E.g. Harry" value="@ViewData["currentFilter"]" />
+            Search: <a href="#" data-toggle="tooltip" title="Enter the employee name that you want to search"><input type="text" name="SearchString" placeholder="E.g. Harry" value="@ViewData["currentFilter"]" /></a>
         </p>
     </div>
     <div>
@@ -17,9 +17,9 @@
             The date will be defaulted to todays date.
         </p>
         <p>
-            From Date: <input type="text" name="fromDate" value="@ViewData["fromDate"]" />
-            To Date: <input type="text" name="toDate" value="@ViewData["toDate"]" /> 
-            <input type="submit" value="Search" class="btn btn-default" /> 
+            From Date: <a href="#" data-toggle="tooltip" title="Enter the start date"><input type="text" name="fromDate" value="@ViewData["fromDate"]" /></a>
+            To Date: <a href="#" data-toggle="tooltip" title="Enter the end date"><input type="text" name="toDate" value="@ViewData["toDate"]" /> </a>
+                     <a href="#" data-toggle="tooltip" title="Press to search"><input type="submit" value="Search" class="btn btn-default" /></a>
             @*@Html.ActionLink("Show Todays Training Courses", "Index", "training_course_instance")*@
         </p>
     </div>

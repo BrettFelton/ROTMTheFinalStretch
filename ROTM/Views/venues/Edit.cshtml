@@ -21,64 +21,80 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Venue_Name, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Venue_Name, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Venue_Name, "", new { @class = "text-danger" })
+            <a href="#" data-toggle="tooltip" title="Enter the updated Venue name">
+                @Html.EditorFor(model => model.Venue_Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Venue_Name, "", new { @class = "text-danger" })
+            </a>
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.Venue_Description, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Venue_Description, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Venue_Description, "", new { @class = "text-danger" })
+            <a href="#" data-toggle="tooltip" title="Enter the updated venue description">
+                @Html.EditorFor(model => model.Venue_Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Venue_Description, "", new { @class = "text-danger" })
+            </a>
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.Venue_Size, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Venue_Size, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Venue_Size, "", new { @class = "text-danger" })
+            <a href="#" data-toggle="tooltip" title="Enter the updated Venue size">
+                @Html.EditorFor(model => model.Venue_Size, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Venue_Size, "", new { @class = "text-danger" })
+            </a>
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.address.Street_Name, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.address.Street_Name, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.address.Street_Name, "", new { @class = "text-danger" })
+            <a href="#" data-toggle="tooltip" title="Enter the updated Street Name">
+                @Html.EditorFor(model => model.address.Street_Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.address.Street_Name, "", new { @class = "text-danger" })
+            </a>
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.address.Suburb, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.address.Suburb, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.address.Suburb, "", new { @class = "text-danger" })
+            <a href="#" data-toggle="tooltip" title="Enter the updated Suburb">
+                @Html.EditorFor(model => model.address.Suburb, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.address.Suburb, "", new { @class = "text-danger" })
+            </a>
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.address.City, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.address.City, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.address.City, "", new { @class = "text-danger" })
+            <a href="#" data-toggle="tooltip" title="Enter the updated City">
+                @Html.EditorFor(model => model.address.City, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.address.City, "", new { @class = "text-danger" })
+            </a>
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.address.Province, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.address.Province, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.address.Province, "", new { @class = "text-danger" })
+            <a href="#" data-toggle="tooltip" title="Enter the updated Province">
+                @Html.EditorFor(model => model.address.Province, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.address.Province, "", new { @class = "text-danger" })
+            </a>
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.address.Country, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.address.Country, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.address.Country, "", new { @class = "text-danger" })
+            <a href="#" data-toggle="tooltip" title="Enter the updated Country">
+                @Html.EditorFor(model => model.address.Country, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.address.Country, "", new { @class = "text-danger" })
+            </a>
         </div>
     </div>
 
@@ -93,7 +109,7 @@
     @Html.HiddenFor(model => model.address.Address_ID)
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
+            <a href="#" data-toggle="tooltip" title="Update the venue"><input type="submit" value="Save" class="btn btn-default" /></a>
         </div>
     </div>
 </div>
