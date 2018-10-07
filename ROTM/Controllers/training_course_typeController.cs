@@ -120,21 +120,33 @@ namespace ROTM.Controllers
         // POST: training_course_type/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id, audit_trail audit)
         {
             var check = db.training_course.Where(s => s.Training_Course_Type_ID == id).FirstOrDefault();
 
             if (check == null)
             {
                 training_course_type training_course_type = db.training_course_type.Find(id);
+
+                var userId = System.Web.HttpContext.Current.Session["UserID"] as String;
+                int IntID = Convert.ToInt32(userId);
+
+                audit.Employee_ID = IntID;
+                audit.Trail_DateTime = DateTime.Now.Date;
+                audit.Deleted_Record = training_course_type.Training_Course_Type_ID.ToString() + " " + training_course_type.Course_Name + " " + training_course_type.Course_Description;
+                audit.Trail_Description = "Deleted a Training Course Type.";
+
+                db.audit_trail.Add(audit);
+
                 db.training_course_type.Remove(training_course_type);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             else
             {
+                training_course_type training_course_type = db.training_course_type.Find(id);
                 ViewBag.Error = "Can't delete a type that is in-use please add a new type instead, or delete all training courses related to this type first.";
-                return View();
+                return View(training_course_type);
             }
         }
 

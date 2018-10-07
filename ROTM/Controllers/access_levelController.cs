@@ -132,8 +132,9 @@ namespace ROTM.Controllers
             }
             else
             {
+                access_level access_level = db.access_level.Find(id);
                 ViewBag.Error = "Can't delete a access level that is in-use please add a new access level instead.";
-                return View();
+                return View(access_level);
             }
         }
 

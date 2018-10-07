@@ -119,21 +119,33 @@ namespace ROTM.Controllers
         // POST: client_type/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id, audit_trail audit)
         {
             var check = db.clients.Where(s => s.Client_Type_ID == id).FirstOrDefault();
 
             if (check == null)
             {
                 client_type client_type = db.client_type.Find(id);
+
+                var userId = System.Web.HttpContext.Current.Session["UserID"] as String;
+                int IntID = Convert.ToInt32(userId);
+
+                audit.Employee_ID = IntID;
+                audit.Trail_DateTime = DateTime.Now.Date;
+                audit.Deleted_Record = client_type.Client_Type_ID.ToString() + " " + client_type.Client_Type_Name + " " + client_type.Client_Type_Description;
+                audit.Trail_Description = "Deleted a Client Type";
+
+                db.audit_trail.Add(audit);
+
                 db.client_type.Remove(client_type);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             else
             {
+                client_type client_type = db.client_type.Find(id);
                 ViewBag.Error = "Can't delete a type that is in-use please add a new type instead, or delete all clients related to this type first.";
-                return View();
+                return View(client_type);
             }
         }
 
