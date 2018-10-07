@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Restore Database</h2>
+
+<h3 class="text-success">@ViewBag.Success</h3>
+<h4 class="text-danger">@ViewBag.Error</h4>
+@using (Html.BeginForm(Html.BeginForm("Index", "Restore", null, FormMethod.Post, new { enctype = "multipart/form-data" })))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.Label("Upload Database SQl File:", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input name="fileUploader" type="file" />
+        </div>
+    </div>
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Upload Backup" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

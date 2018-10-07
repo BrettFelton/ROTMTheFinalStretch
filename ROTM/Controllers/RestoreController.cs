@@ -1,8 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -10,9 +8,9 @@ using System.Web.Mvc;
 
 namespace ROTM.Controllers
 {
-    public class BackUpController : Controller
+    public class RestoreController : Controller
     {
-        // GET: BackUp
+        // GET: Restore
         public ActionResult Index()
         {
             return View();
@@ -20,14 +18,17 @@ namespace ROTM.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(int? id)
+        public ActionResult Index(HttpPostedFileBase fileUploader)
         {
             Entities nw = new Entities();
 
             string connection = nw.Database.Connection.ConnectionString;
-            string connectionstring = "~/MyDumpFile.sql";
-            string file = Server.MapPath(connectionstring);//"C:\\backup.sql";
 
+            string fileName = Path.GetFileName(fileUploader.FileName);
+            var sourcepath = Path.Combine(Server.MapPath("~/Restore/") + fileName);
+
+            //return View();
+            string file = fileUploader.FileName;
 
             using (MySqlConnection conn = new MySqlConnection(connection))
             {
@@ -37,37 +38,25 @@ namespace ROTM.Controllers
                     {
                         try
                         {
+
+                            fileUploader.SaveAs(sourcepath);
                             cmd.Connection = conn;
                             conn.Open();
-                            mb.ExportToFile(file);
+                            mb.ImportFromFile(sourcepath);
                             conn.Close();
 
-                            ViewBag.Success = "Database has been backed up.";
+                            ViewBag.Success = "Database has been successfully restored.";
 
-                            byte[] fileBytes = GetFile(file); 
-
-                            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, file); 
-
+                            return View();
                         }
                         catch (Exception)
                         {
-                            ViewBag.Success = "Database Couldn't connect, please check your internet connection";
-                            return View();
+                            ViewBag.Error = "Couldn't Connect to the database.";
                             throw;
                         }
                        
                     }
                 }
-            }
-
-            byte[] GetFile(string s)
-            {
-                System.IO.FileStream fs = System.IO.File.OpenRead(s);
-                byte[] data = new byte[fs.Length];
-                int br = fs.Read(data, 0, data.Length);
-                if (br != fs.Length)
-                    throw new System.IO.IOException(s);
-                return data;
             }
         }
     }
