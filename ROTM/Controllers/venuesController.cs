@@ -146,7 +146,7 @@ namespace ROTM.Controllers
         // POST: venues/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id, audit_trail audit)
         {
             var check = db.training_course_instance.Where(s => s.Venue_ID == id).FirstOrDefault();
 
@@ -154,6 +154,19 @@ namespace ROTM.Controllers
             {
                 venue venue = db.venues.Find(id);
                 address address = db.addresses.Find(venue.Address_ID);
+
+
+                var userId = System.Web.HttpContext.Current.Session["UserID"] as String;
+                int IntID = Convert.ToInt32(userId);
+
+                audit.Employee_ID = IntID;
+                audit.Trail_DateTime = DateTime.Now.Date;
+                audit.Deleted_Record = "Venue ID: " + venue.Venue_ID.ToString() + " Venue Name: " + venue.Venue_Name + " Venue Description" + venue.Venue_Description + " Size" + Convert.ToString(venue.Venue_Size)
+                    + "Address ID: " + address.Address_ID.ToString() + " " + address.Street_Name + " " + address.Suburb + " " + address.City + " " + address.Province + " " + address.Country ;
+                audit.Trail_Description = "Deleted a Venue And a Address.";
+
+                db.audit_trail.Add(audit);
+
 
                 db.addresses.Remove(address);
                 db.venues.Remove(venue);

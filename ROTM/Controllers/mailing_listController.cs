@@ -108,13 +108,24 @@ namespace ROTM.Controllers
         // POST: mailing_list/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id, audit_trail audit)
         {
             var check = db.mailing_list.Where(s => s.Mailing_List_ID == id).FirstOrDefault();
 
             if (check == null)
             {
                 mailing_list mailing_list = db.mailing_list.Find(id);
+
+                var userId = System.Web.HttpContext.Current.Session["UserID"] as String;
+                int IntID = Convert.ToInt32(userId);
+
+                audit.Employee_ID = IntID;
+                audit.Trail_DateTime = DateTime.Now.Date;
+                audit.Deleted_Record = mailing_list.Mailing_List_ID.ToString() + " " + mailing_list.Mailing_List_Name + " " + mailing_list.Mailing_List_Description;
+                audit.Trail_Description = "Deleted a Mailing List";
+
+                db.audit_trail.Add(audit);
+
                 db.mailing_list.Remove(mailing_list);
                 db.SaveChanges();
                 return RedirectToAction("Index");

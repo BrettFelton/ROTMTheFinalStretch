@@ -159,9 +159,20 @@ namespace ROTM.Controllers
         // POST: registration_token/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id, audit_trail audit)
         {
             registration_token registration_token = db.registration_token.Find(id);
+
+            var userId = System.Web.HttpContext.Current.Session["UserID"] as String;
+            int IntID = Convert.ToInt32(userId);
+
+            audit.Employee_ID = IntID;
+            audit.Trail_DateTime = DateTime.Now.Date;
+            audit.Deleted_Record = "Registration Token ID: " + registration_token.Registration_Token_ID.ToString() + " Email Address: " + registration_token.New_Email + " Access Level ID: " + registration_token.Access_Level_ID;
+            audit.Trail_Description = "Deleted a Registration Token.";
+
+            db.audit_trail.Add(audit);
+
             db.registration_token.Remove(registration_token);
             db.SaveChanges();
             return RedirectToAction("Index");

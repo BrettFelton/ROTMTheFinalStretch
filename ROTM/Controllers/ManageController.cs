@@ -176,14 +176,14 @@ namespace ROTM.Controllers
             model.Cell_Phone = employee.Employee_Cellphone;
             model.RSA_ID = employee.Employee_RSA_ID;
             model.Gender_ID = employee.Gender_ID;
-            model.Employee_Type_ID = employee.Employee_Type_ID;
+            //model.Employee_Type_ID = employee.Employee_Type_ID;
             model.Title_ID = employee.Title_ID;
 
             if (employee == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Employee_Type_ID = new SelectList(db.employee_type, "Employee_Type_ID", "Type_Name", employee.Employee_Type_ID);
+            //ViewBag.Employee_Type_ID = new SelectList(db.employee_type, "Employee_Type_ID", "Type_Name", employee.Employee_Type_ID);
             ViewBag.Gender_ID = new SelectList(db.genders, "Gender_ID", "Gender1", employee.Gender_ID);
             ViewBag.Title_ID = new SelectList(db.titles, "Title_ID", "Title1", employee.Title_ID);
             return View(model);
@@ -204,13 +204,13 @@ namespace ROTM.Controllers
             employee.Employee_Cellphone = model.Cell_Phone;
             employee.Employee_RSA_ID = model.RSA_ID;
             employee.Gender_ID = model.Gender_ID;
-            employee.Employee_Type_ID = model.Employee_Type_ID;
+            //employee.Employee_Type_ID = model.Employee_Type_ID;
             employee.Title_ID = model.Title_ID;
 
             db.Entry(employee).State = EntityState.Modified;
             db.SaveChanges();
 
-            ViewBag.Employee_Type_ID = new SelectList(db.employee_type, "Employee_Type_ID", "Type_Name", employee.Employee_Type_ID);
+            //ViewBag.Employee_Type_ID = new SelectList(db.employee_type, "Employee_Type_ID", "Type_Name", employee.Employee_Type_ID);
             ViewBag.Gender_ID = new SelectList(db.genders, "Gender_ID", "Gender1", employee.Gender_ID);
             ViewBag.Title_ID = new SelectList(db.titles, "Title_ID", "Title1", employee.Title_ID);
 

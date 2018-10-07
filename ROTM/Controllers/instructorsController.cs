@@ -153,13 +153,24 @@ namespace ROTM.Controllers
         // POST: instructors/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id, audit_trail audit)
         {
             var check = db.training_course_instance.Where(s => s.Instructor_ID == id).FirstOrDefault();
 
             if (check == null)
             {
                 instructor instructor = db.instructors.Find(id);
+
+                var userId = System.Web.HttpContext.Current.Session["UserID"] as String;
+                int IntID = Convert.ToInt32(userId);
+
+                audit.Employee_ID = IntID;
+                audit.Trail_DateTime = DateTime.Now.Date;
+                audit.Deleted_Record = "Instructor ID" + instructor.Instructor_ID.ToString() + " " + instructor.Instructor_Name + " " + instructor.Instructor_Surname + " " + instructor.Instructor_Cellphone + " " + instructor.Instructor_Email + " Type ID: " + instructor.Instructor_Type_ID.ToString();
+                audit.Trail_Description = "Deleted a Instructor";
+
+                db.audit_trail.Add(audit);
+
                 db.instructors.Remove(instructor);
                 db.SaveChanges();
                 return RedirectToAction("Index");

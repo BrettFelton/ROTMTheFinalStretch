@@ -128,12 +128,23 @@ namespace ROTM.Controllers
         // POST: tasks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id, audit_trail audit)
         {
             var check = db.tasks.Where(s => s.Task_ID == id).FirstOrDefault();
             if (check == null)
             {
                 task task = db.tasks.Find(id);
+
+                var userId = System.Web.HttpContext.Current.Session["UserID"] as String;
+                int IntID = Convert.ToInt32(userId);
+
+                audit.Employee_ID = IntID;
+                audit.Trail_DateTime = DateTime.Now.Date;
+                audit.Deleted_Record = task.Task_ID.ToString() + " " + task.Task_Name + " " + task.Task_Description;
+                audit.Trail_Description = "Deleted a Task.";
+
+                db.audit_trail.Add(audit);
+
                 db.tasks.Remove(task);
                 db.SaveChanges();
                 return RedirectToAction("Index");
