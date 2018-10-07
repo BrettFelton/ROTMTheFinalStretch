@@ -230,22 +230,33 @@ namespace ROTM.Controllers
             if (ModelState.IsValid)
 
             {
+                //        string p = Path.GetExtension(files.FileName).ToLower();
 
+                //        if (p == ".png" || p == ".jpg" || p == ".gif" || p == ".bmp")
+                //        {
                 var Nameofrecord = Path.GetFileName(files.file.FileName);
-                var sourcepath = Path.Combine(Server.MapPath("~/ProfilePictures/") + Nameofrecord);
-                files.file.SaveAs(sourcepath);
+                string p = Path.GetExtension(files.file.FileName).ToLower();
 
-                ViewBag.UploadStatus = "Your file Uploaded successfully";
+                if (p == ".png" || p == ".jpg" || p == ".gif" || p == ".bmp")
+                {
+                    var sourcepath = Path.Combine(Server.MapPath("~/ProfilePictures/") + Nameofrecord);
+                    files.file.SaveAs(sourcepath);
 
-                employee employee = db.employees.Find(IntID);
-                employee.Employee_Avatar = Nameofrecord;
+                    ViewBag.UploadStatus = "Your file Uploaded successfully";
 
-                db.Entry(employee).State = EntityState.Modified;
-                db.SaveChanges();
+                    employee employee = db.employees.Find(IntID);
+                    employee.Employee_Avatar = Nameofrecord;
+
+                    db.Entry(employee).State = EntityState.Modified;
+                    db.SaveChanges();
 
 
-                ModelState.Clear();
-
+                    ModelState.Clear();
+                }
+                else
+                {
+                    ViewBag.Error = "Please select and image type of .png, .jpg, .gif or .bmp";
+                }
 
 
             }

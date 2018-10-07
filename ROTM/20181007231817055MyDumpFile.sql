@@ -1,5 +1,5 @@
 -- MySqlBackup.NET 2.0.12
--- Dump Time: 2018-10-07 23:05:56
+-- Dump Time: 2018-10-07 23:18:17
 -- --------------------------------------
 -- Server version 5.7.21 MySQL Community Server (GPL)
 
@@ -13,6 +13,29 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+
+-- 
+-- Definition of access_level
+-- 
+
+DROP TABLE IF EXISTS `access_level`;
+CREATE TABLE IF NOT EXISTS `access_level` (
+  `Access_Level_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Access_Level_Name` varchar(50) NOT NULL,
+  `Access_Level_Description` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`Access_Level_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- 
+-- Dumping data for table access_level
+-- 
+
+/*!40000 ALTER TABLE `access_level` DISABLE KEYS */;
+INSERT INTO `access_level`(`Access_Level_ID`,`Access_Level_Name`,`Access_Level_Description`) VALUES
+(1,'Full Access','Grants full access to the system'),
+(2,'Management only access','Grants access only to Management system'),
+(3,'Mobile only access','Grants only to the mobile system');
+/*!40000 ALTER TABLE `access_level` ENABLE KEYS */;
 
 -- 
 -- Definition of active_user
@@ -505,7 +528,7 @@ CREATE TABLE IF NOT EXISTS `client_type` (
   `Client_Type_Name` varchar(50) DEFAULT NULL,
   `Client_Type_Description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`Client_Type_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- 
 -- Dumping data for table client_type
@@ -516,7 +539,8 @@ INSERT INTO `client_type`(`Client_Type_ID`,`Client_Type_Name`,`Client_Type_Descr
 (1,'School','A school that can have many different associated contacts'),
 (2,'Individual','An individual contact who isn''t apart of a company'),
 (3,'Company','A company that can have many different contacts'),
-(4,'test','test');
+(4,'test','test'),
+(5,'Another Test','Another Test');
 /*!40000 ALTER TABLE `client_type` ENABLE KEYS */;
 
 -- 
@@ -1274,5 +1298,5 @@ DELIMITER ;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 
--- Dump completed on 2018-10-07 23:06:28
--- Total time: 0:0:0:31:808 (d:h:m:s:ms)
+-- Dump completed on 2018-10-07 23:18:50
+-- Total time: 0:0:0:33:40 (d:h:m:s:ms)

@@ -1,5 +1,5 @@
 -- MySqlBackup.NET 2.0.12
--- Dump Time: 2018-10-07 21:14:04
+-- Dump Time: 2018-10-07 23:15:44
 -- --------------------------------------
 -- Server version 5.7.21 MySQL Community Server (GPL)
 
@@ -528,7 +528,7 @@ CREATE TABLE IF NOT EXISTS `client_type` (
   `Client_Type_Name` varchar(50) DEFAULT NULL,
   `Client_Type_Description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`Client_Type_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- 
 -- Dumping data for table client_type
@@ -538,7 +538,9 @@ CREATE TABLE IF NOT EXISTS `client_type` (
 INSERT INTO `client_type`(`Client_Type_ID`,`Client_Type_Name`,`Client_Type_Description`) VALUES
 (1,'School','A school that can have many different associated contacts'),
 (2,'Individual','An individual contact who isn''t apart of a company'),
-(3,'Company','A company that can have many different contacts');
+(3,'Company','A company that can have many different contacts'),
+(4,'test','test'),
+(5,'Another Test','Another Test');
 /*!40000 ALTER TABLE `client_type` ENABLE KEYS */;
 
 -- 
@@ -1296,5 +1298,5 @@ DELIMITER ;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 
--- Dump completed on 2018-10-07 21:14:37
--- Total time: 0:0:0:32:829 (d:h:m:s:ms)
+-- Dump completed on 2018-10-07 23:16:17
+-- Total time: 0:0:0:32:537 (d:h:m:s:ms)

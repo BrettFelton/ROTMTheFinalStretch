@@ -27,36 +27,53 @@ namespace ROTM.Controllers
             string fileName = Path.GetFileName(fileUploader.FileName);
             var sourcepath = Path.Combine(Server.MapPath("~/Restore/") + fileName);
 
+            string p = Path.GetExtension(fileUploader.FileName).ToLower();
+
             //return View();
             string file = fileUploader.FileName;
-
-            using (MySqlConnection conn = new MySqlConnection(connection))
+            if (p == ".sql")
             {
-                using (MySqlCommand cmd = new MySqlCommand())
+                using (MySqlConnection conn = new MySqlConnection(connection))
                 {
-                    using (MySqlBackup mb = new MySqlBackup(cmd))
+                    using (MySqlCommand cmd = new MySqlCommand())
                     {
-                        try
+                        using (MySqlBackup mb = new MySqlBackup(cmd))
                         {
+                            try
+                            {
+                                fileUploader.SaveAs(sourcepath);
+                                cmd.Connection = conn;
+                                conn.Open();
+                                try
+                                {
+                                    mb.ImportFromFile(sourcepath);
+                                }
+                                catch (Exception e)
+                                {
+                                    ViewBag.Error = "Restore failed because of: " + e;
+                                    return View();
+                                }
 
-                            fileUploader.SaveAs(sourcepath);
-                            cmd.Connection = conn;
-                            conn.Open();
-                            mb.ImportFromFile(sourcepath);
-                            conn.Close();
+                                conn.Close();
 
-                            ViewBag.Success = "Database has been successfully restored.";
+                                ViewBag.Success = "Database has been successfully restored.";
 
-                            return View();
+                                return View();
+                            }
+                            catch (Exception)
+                            {
+                                ViewBag.Error = "Couldn't Connect to the database.";
+                                return View();
+                            }
+
                         }
-                        catch (Exception)
-                        {
-                            ViewBag.Error = "Couldn't Connect to the database.";
-                            throw;
-                        }
-                       
                     }
                 }
+            }
+            else
+            {
+                ViewBag.Error = "Not a supported file format. Please Upload a .sql file that you have downloaded from Backup.";
+                return View();
             }
         }
     }

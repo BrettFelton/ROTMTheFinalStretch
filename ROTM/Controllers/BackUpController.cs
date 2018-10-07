@@ -23,9 +23,9 @@ namespace ROTM.Controllers
         public ActionResult Index(int? id)
         {
             Entities nw = new Entities();
-
+            string date = DateTime.Now.ToString("yyyyMMddHHmmssfff");
             string connection = nw.Database.Connection.ConnectionString;
-            string connectionstring = "~/MyDumpFile.sql";
+            string connectionstring = "~/"+ date + "MyDumpFile.sql";
             string file = Server.MapPath(connectionstring);//"C:\\backup.sql";
 
 
