@@ -121,8 +121,9 @@ namespace ROTM.Controllers
             }
             else
             {
+                mailing_list mailing_list = db.mailing_list.Find(id);
                 ViewBag.Error = "Can't delete a mailing list that is in-use please add a new mailing list instead.";
-                return View();
+                return View(mailing_list);
             }
         }
 

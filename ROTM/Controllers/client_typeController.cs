@@ -132,8 +132,9 @@ namespace ROTM.Controllers
             }
             else
             {
+                client_type client_type = db.client_type.Find(id);
                 ViewBag.Error = "Can't delete a type that is in-use please add a new type instead, or delete all clients related to this type first.";
-                return View();
+                return View(client_type);
             }
         }
 

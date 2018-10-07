@@ -130,10 +130,21 @@ namespace ROTM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            task task = db.tasks.Find(id);
-            db.tasks.Remove(task);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var check = db.tasks.Where(s => s.Task_ID == id).FirstOrDefault();
+            if (check == null)
+            {
+                task task = db.tasks.Find(id);
+                db.tasks.Remove(task);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                task task = db.tasks.Find(id);
+                ViewBag.Error = "Can't delete a type that is in-use please add a new type instead, or delete all employees related to this type first.";
+                return View(task);
+            }
+
         }
 
         protected override void Dispose(bool disposing)

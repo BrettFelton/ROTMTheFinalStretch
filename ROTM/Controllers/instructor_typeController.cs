@@ -132,8 +132,9 @@ namespace ROTM.Controllers
             }
             else
             {
+                instructor_type instructor_type = db.instructor_type.Find(id);
                 ViewBag.Error = "Can't delete a type that is in-use please add a new type instead, or delete all instructors related to this type first.";
-                return View();
+                return View(instructor_type);
             }
         }
 

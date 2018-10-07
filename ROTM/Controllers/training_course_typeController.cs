@@ -133,8 +133,9 @@ namespace ROTM.Controllers
             }
             else
             {
+                training_course_type training_course_type = db.training_course_type.Find(id);
                 ViewBag.Error = "Can't delete a type that is in-use please add a new type instead, or delete all training courses related to this type first.";
-                return View();
+                return View(training_course_type);
             }
         }
 

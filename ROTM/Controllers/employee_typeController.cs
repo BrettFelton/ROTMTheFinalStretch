@@ -132,8 +132,9 @@ namespace ROTM.Controllers
             }
             else
             {
+                employee_type employee_type = db.employee_type.Find(id);
                 ViewBag.Error = "Can't delete a type that is in-use please add a new type instead, or delete all employees related to this type first.";
-                return View();
+                return View(employee_type);
             }
         }
 

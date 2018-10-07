@@ -153,8 +153,9 @@ namespace ROTM.Controllers
             }
             else
             {
+                training_course training_course = db.training_course.Find(id);
                 ViewBag.Error = "Can't delete a training course description that has been used in training course instance, keep it as a record for historic purposes.";
-                return View();
+                return View(training_course);
             }
         }
 

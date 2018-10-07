@@ -149,8 +149,9 @@ namespace ROTM.Controllers
             }
             else
             {
+                employee employee = db.employees.Find(id);
                 ViewBag.Error = "Can't delete a employee that has been used in booking, keep it as a record for historic purposes.";
-                return View();
+                return View(employee);
             }
         }
 

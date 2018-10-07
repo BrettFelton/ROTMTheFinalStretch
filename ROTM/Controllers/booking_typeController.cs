@@ -144,8 +144,9 @@ namespace ROTM.Controllers
             }
             else
             {
+                booking_type booking_type = db.booking_type.Find(id);
                 ViewBag.Error = "Can't delete a type that is in-use please add a new type instead, or delete all bookings related to this type first.";
-                return View();
+                return View(booking_type);
             }
            
         }
