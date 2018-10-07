@@ -5,6 +5,13 @@
 }
 
 <h2>@ViewBag.Title.</h2>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+
 <div class="row">
     <div class="col-md-8">
         <section id="loginForm">
@@ -16,16 +23,17 @@
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
                     @Html.LabelFor(m => m.Employee_Email, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Employee_Email, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Employee_Email, "", new { @class = "text-danger" })
-                    </div>
+                    <div class="col-md-10"><a href="#" data-toggle="tooltip" title="Please enter your account email.">
+    @Html.TextBoxFor(m => m.Employee_Email, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Employee_Email, "", new { @class = "text-danger" })
+                    </a></div>
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.Encrypted_Password, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Encrypted_Password, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Encrypted_Password, "", new { @class = "text-danger" })
+                    <div class="col-md-10"><a href="#" data-toggle="tooltip" title="Please enter your account password. The password is Case Sensitive.">
+    @Html.PasswordFor(m => m.Encrypted_Password, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Encrypted_Password, "", new { @class = "text-danger" })
+                        </a>
                     </div>
                 </div>
                 @*<div class="form-group">
@@ -38,16 +46,16 @@
                 </div>*@
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Log in" class="btn btn-default" />
+                        <a href="#" data-toggle="tooltip" title="Hit it to log in to the system."><input type="submit" value="Log in" class="btn btn-default" /></a>
                     </div>
                 </div>
                 <p>
-                    @Html.ActionLink("Register as a new user", "TokenRegister")
+                    @Html.ActionLink("Register as a new user", "TokenRegister", "", new { Class = "action add", title = "If you are not registered on the Reps On The Move system, follow this link to register as a new user." })
                 </p>
                 //Enable this once you have account confirmation enabled for password reset functionality
-                    <p>
-                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                    </p>
+                <p>
+                    @Html.ActionLink("Forgot your password?", "ForgotPassword", "ForgotPassword", new { Class = "action add", title = "Having trouble signing is? Follow this link to reset your password." })
+                </p>
             }
         </section>
     </div>
