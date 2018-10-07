@@ -166,8 +166,9 @@ namespace ROTM.Controllers
             }
             else
             {
+                instructor instructor = db.instructors.Find(id);
                 ViewBag.Error = "Can't delete a instructor that has given a training course, keep it as a record for historic purposes.";
-                return View();
+                return View(instructor);
             }
         }
 
